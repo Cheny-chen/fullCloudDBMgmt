@@ -1,0 +1,94 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form id="thisForm" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'groups', action:'Add'}) %>
+        <div class="form-group row">
+            <label for="input_groupName" class="col-sm-2 col-form-label">groupName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_groupName" name="groupName" placeholder="group Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_permissID" class="col-sm-2 col-form-label">permission ID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_permissID" name="permissID" placeholder="permission ID" value="<%= _id!=undefined?_id:'' %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_deviceList" class="col-sm-2 col-form-label">action</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
+            </div>
+            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
+            </div>
+            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
+            </div>
+            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>
+<script>
+    $('#thisForm').on('submit', function(event){
+        event.preventDefault();
+        var obj = $(this).serializeJSON();
+        var str = JSON.stringify(obj);
+        console.log(str);
+        // $.post('/groupsAddSubmit', {data: obj}, function(result) {
+        //     // console.log("group: %j ", result);
+        // });
+        $.ajax({
+            data: str,
+            dataType: 'application/json',
+            url: '/groupsAddSubmit',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                alert(result);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    })
+</script>

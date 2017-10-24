@@ -1,0 +1,9 @@
+{
+    "url": {
+        "localhost": "mongodb://localhost:27017/FEC",
+        "testServer": "mongodb://192.168.0.124:27017/FEC"
+    },
+    "g": "gateways",
+    "m": "mobiles",
+    "p": "permissions"
+}

@@ -1,0 +1,57 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form action="" method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'automations', url:'automationsAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>autoName</th>
+                    <th>permissID</th>
+                    <th>timeZone</th>
+                    <th>trigger</th>
+                    <th>triggerFunction</th>
+                    <th>deviceList</th>
+                    <th>functionList</th>
+                    <th>sceneID</th>
+                    <th>enable</th>
+                    <th>push</th>
+                    <th>updateTime</th>
+                    <th>createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% automationsData.forEach((automation, cindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= cindex+1 %></th>
+                        <td><%= automation._id %></td>
+                        <td><%= automation.autoName %></td>
+                        <td><%= automation.permissID %></td>
+                        <td><%= automation.timeZone %></td>
+                        <td><%= automation.trigger %></td>
+                        <td><%= automation.triggerFunction %></td>
+                        <td><%= automation.deviceList %></td>
+                        <td><%= automation.functionList %></td>
+                        <td><%= automation.sceneID %></td>
+                        <td><%= automation.enable %></td>
+                        <td><%= automation.push %></td>
+                        <td><%= automation.updateTime %></td>
+                        <td><%= automation.createTime %></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="/automationsAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

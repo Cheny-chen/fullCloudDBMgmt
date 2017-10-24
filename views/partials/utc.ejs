@@ -1,0 +1,7 @@
+<% function timeZone(t) {
+    var timeZone='Asia/Taipei';
+    var utc = parseInt(t);
+    var time = moment(utc).tz(timeZone).format('lll');
+    return time;
+}
+%>

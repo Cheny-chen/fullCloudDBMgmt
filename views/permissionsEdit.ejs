@@ -1,0 +1,126 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'permissions', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" name="_id" readonly value="<%= permission._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_parentID" class="col-sm-2 col-form-label">parentID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_parentID" placeholder="user's permission ID" readonly value="<%= permission.parentID %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_permissName" class="col-sm-2 col-form-label">permissName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_permissName" placeholder="permission Name" required value="<%= permission.permissName %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_snID" class="col-sm-2 col-form-label">sn ID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_snID" placeholder="serial Number ID" value="<%= permission.snID %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_itemList" class="col-sm-2 col-form-label">identifyList</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[0]?permission.identifyList[0]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[1]?permission.identifyList[1]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[2]?permission.identifyList[2]:'' %>">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[3]?permission.identifyList[3]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[4]?permission.identifyList[4]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[5]?permission.identifyList[5]:'' %>">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[6]?permission.identifyList[6]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[7]?permission.identifyList[7]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[8]?permission.identifyList[8]:'' %>">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[9]?permission.identifyList[9]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[10]?permission.identifyList[10]:'' %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="identify ID" value="<%= permission.identifyList[11]?permission.identifyList[11]:'' %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">enable</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked1" name="enable" type="radio" class="custom-control-input" value="0">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">disable</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked2" name="enable" type="radio" class="custom-control-input" value="1" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">enable</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(permission.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(permission.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/permissionsEditSubmit/<%= permission._id %>">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>
+<script>
+    // $('#input_parentID').on("change", function(event) {
+    //     $(this).attr('name','parentID');
+    // })
+    $('#input_permissName').on("change", function(event) {
+        $(this).attr('name','permissName');
+    })
+    $('#input_snID').on("change", function(event) {
+        $(this).attr('name','snID');
+    })
+    $('.identifyList').on("change", function(event) {
+        $(this).attr('name','identifyList');
+    })
+    $('#input_enable').on("change", function(event) {
+        $(this).attr('name','enable');
+    })
+</script>

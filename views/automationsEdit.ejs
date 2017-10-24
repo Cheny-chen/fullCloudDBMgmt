@@ -1,0 +1,162 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form method="post" enctype="multipart/form-data" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'automations', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" readonly placeholder="auto ID" value="<%= automation._id%>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_autoName" class="col-sm-2 col-form-label">autoName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_autoName" placeholder="auto Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_permissID" class="col-sm-2 col-form-label">permissID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_permissID" placeholder="permission ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_timeZone" class="col-sm-2 col-form-label">timeZone</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_timeZone" placeholder="timeZone">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_trigger" class="col-sm-2 col-form-label">trigger</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_trigger" placeholder="trigger device ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="input_trigger" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="input_trigger" placeholder="value">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_itemList" class="col-sm-2 col-form-label">action_deviceList</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_itemList" class="col-sm-2 col-form-label">action_functionList</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="input_itemList" placeholder="value">
+            </div> |
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="input_itemList" placeholder="value">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_push" class="col-sm-2 col-form-label">sceneID</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="scene" type="radio" class="custom-control-input" value="0" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Custom</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="scene" type="radio" class="custom-control-input" value="1">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Outdoor</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="scene" type="radio" class="custom-control-input" value="2">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Home</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="scene" type="radio" class="custom-control-input" value="3">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Sleep</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_itemList" class="col-sm-2 col-form-label">action_runAfter</label>
+            <div class="col-sm-3">
+                <label class="custom-control custom-radio">
+                  <input name="enableRunAfter" type="radio" class="custom-control-input" value="0" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">disable</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="enableRunAfter" type="radio" class="custom-control-input" value="1">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">enable</span>
+                </label>
+            </div>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" id="input_itemList" placeholder="delay seconds">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_push" class="col-sm-2 col-form-label">push</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="push" type="radio" class="custom-control-input" value="0" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">silence</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="push" type="radio" class="custom-control-input" value="1">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">push</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_enable" class="col-sm-2 col-form-label">enable</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="enable" type="radio" class="custom-control-input" value="0">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">disable</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="enable" type="radio" class="custom-control-input" value="1" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">enable</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/automationsAddSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

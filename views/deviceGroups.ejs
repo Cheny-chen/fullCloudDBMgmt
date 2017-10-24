@@ -1,0 +1,43 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form action="" method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'deviceGroups', url:'deviceGroupsAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>groupName</th>
+                    <th>itemList</th>
+                    <th>enable</th>
+                    <th>updateTime</th>
+                    <th>createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% deviceGroupsData.forEach((deviceGroup, cindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= cindex+1 %></th>
+                        <td><%= deviceGroup._id %></td>
+                        <td><%= deviceGroup.groupName %></td>
+                        <td><%= deviceGroup.itemList %></td>
+                        <td><%= deviceGroup.enable %></td>
+                        <td><%= deviceGroup.updateTime %></td>
+                        <td><%= deviceGroup.createTime %></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="/deviceGroupsAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

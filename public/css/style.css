@@ -1,0 +1,24 @@
+.navbar-brand { margin-right: 35px;}
+
+.btn-add {  width: 80px; }
+.btn-delete {  width: 80px; }
+.btn-edit {  width: 80px; }
+.btn-off {  width: 80px; }
+.btn-reset {  width: 100px; }
+.btn-submit {  width: 100px; }
+
+.contain-button { margin: 10px 50px 10px 0; }
+
+.formOutline {
+    margin-top: 20px;
+    padding: 20px;
+    border-style: outset;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.capitalize { text-transform:capitalize; }
+
+footer {
+    padding-top: 50px;
+}

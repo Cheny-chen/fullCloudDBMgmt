@@ -1,0 +1,107 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form action="" method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'users', action:'Add'}) %>
+        <div class="form-group row">
+            <label for="input_loginID" class="col-sm-2 col-form-label">loginID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_loginID" name="loginID" placeholder="login ID" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_password" class="col-sm-2 col-form-label">password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="input_password" name="password" placeholder="password" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_clientID" class="col-sm-2 col-form-label">clientID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_clientID" name="clientID" placeholder="client ID" requireds>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_fullName" class="col-sm-2 col-form-label">fullName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_fullName" name="fullName" placeholder="full Name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_email" class="col-sm-2 col-form-label">email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="input_email" name="email" placeholder="email" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_gender" class="col-sm-2 col-form-label">gender</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked1" name="gender" type="radio" class="custom-control-input" value="male" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">male</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked2" name="gender" type="radio" class="custom-control-input" value="female">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">female</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_ageRange" class="col-sm-2 col-form-label">ageRange</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="input_ageRange" name="ageRange">
+                    <option value="-19">-19</option>
+                    <option value="20-29">20-29</option>
+                    <option value="30-39" selected>30-39</option>
+                    <option value="40-49">40-49</option>
+                    <option value="50-59">50-59</option>
+                    <option value="60-69">60-69</option>
+                    <option value="70-79">70-79</option>
+                    <option value="80+">80+</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_occupatin" class="col-sm-2 col-form-label">occupation</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_occupatin" name="occupation" placeholder="職業">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_city" class="col-sm-2 col-form-label">city</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="input_city" name="city" placeholder="city">
+            </div>
+            <label for="input_country" class="col-sm-2 col-form-label">country</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_country" name="country" placeholder="country">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">active</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked1" name="active" type="radio" class="custom-control-input" value="0">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">inactive</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked2" name="active" type="radio" class="custom-control-input" value="1" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">active</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/usersAddSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

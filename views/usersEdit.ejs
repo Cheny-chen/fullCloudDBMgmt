@@ -1,0 +1,160 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form action="" method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'users', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" readonly value="<%= user._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_loginID" class="col-sm-2 col-form-label">loginID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_loginID" placeholder="login ID" required value="<%= user.loginID %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_password" class="col-sm-2 col-form-label">password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="input_password" placeholder="password" required value="<%= user.password %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_clientID" class="col-sm-2 col-form-label">clientID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_clientID" placeholder="client ID" requireds  value="<%= user.clientID %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_fullName" class="col-sm-2 col-form-label">fullName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_fullName" laceholder="全名" required  value="<%= user.fullName %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_email" class="col-sm-2 col-form-label">email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="input_email" placeholder="email" required  value="<%= user.email %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_gender" class="col-sm-2 col-form-label">gender</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="gender" type="radio" class="custom-control-input gender" value="male" <%= user.gender=="male"?"checked":"" %>>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">male</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="gender" type="radio" class="custom-control-input gender" value="female" <%= user.gender=="female"?"checked":"" %>>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">female</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_ageRange" class="col-sm-2 col-form-label">ageRange</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="input_ageRange">
+                    <option value="-19"   <%= user.ageRange=='-19'?'selected':'' %>>-19</option>
+                    <option value="20-29" <%= user.ageRange=='20-29'?'selected':'' %>>20-29</option>
+                    <option value="30-39" <%= user.ageRange=='30-39'?'selected':'' %>>30-39</option>
+                    <option value="40-49" <%= user.ageRange=='40-49'?'selected':'' %>>40-49</option>
+                    <option value="50-59" <%= user.ageRange=='50-59'?'selected':'' %>>50-59</option>
+                    <option value="60-69" <%= user.ageRange=='60-69'?'selected':'' %>>60-69</option>
+                    <option value="70-79" <%= user.ageRange=='790-79'?'selected':'' %>>70-79</option>
+                    <option value="80+"   <%= user.ageRange=='80+'?'selected':'' %>>80+</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_occupatin" class="col-sm-2 col-form-label">occupation</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_occupatin" placeholder="職業" value="<%= user.occupation %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_city" class="col-sm-2 col-form-label">city</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="input_city" placeholder="city" value="<%= user.city %>">
+            </div>
+            <label for="input_country" class="col-sm-2 col-form-label">country</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_country" placeholder="country" value="<%= user.country %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">active</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="active" type="radio" class="custom-control-input" value="0" <%= user.active=='0'?'checked':'' %>>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">inactive</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="active" type="radio" class="custom-control-input" value="1" <%= user.active=='1'?'checked':'' %>>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">active</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(user.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(user.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/usersEditSbumit/<%= user._id%>">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>
+<script>
+    $('#input_loginID').on("change", function(event) {
+        $(this).attr('name','loginID');
+    })
+    $('#input_password').on("change", function(event) {
+        $(this).attr('name','password');
+    })
+    $('#input_clientID').on("change", function(event) {
+        $(this).attr('name','clientID');
+    })
+    $('#input_fullName').on("change", function(event) {
+        $(this).attr('name','fullName');
+    })
+    $('#input_email').on("change", function(event) {
+        $(this).attr('name','email');
+    })
+    $('.gender').on("change", function(event) {
+        $(this).attr('name','gender');
+    })
+    $('#input_ageRange').on("change", function(event) {
+        $(this).attr('name','ageRange');
+    })
+    $('#input_occupation').on("change", function(event) {
+        $(this).attr('name','occupation');
+    })
+    $('#input_city').on("change", function(event) {
+        $(this).attr('name','city');
+    })
+    $('#input_country').on("change", function(event) {
+        $(this).attr('name','country');
+    })
+    $('#input_active').on("change", function(event) {
+        $(this).attr('name','active');
+    })
+</script>

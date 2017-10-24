@@ -1,0 +1,65 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form action="" method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'clients', url:'clientsAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>companyName</th>
+                    <th>uniBusNo</th>
+                    <th>address</th>
+                    <th>city</th>
+                    <th>district</th>
+                    <th>country</th>
+                    <th>postcode</th>
+                    <th>contactPerson1<br />
+                        contactPhone1<br />
+                        contactEmail1</th>
+                    <th>contactPerson2<br />
+                        contactPhone2<br />
+                        contactEmail2</th>
+                    <th>active</th>
+                    <th>updateTime<br />
+                        createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% clientsData.forEach((client, cindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= cindex+1 %></th>
+                        <td><%= client._id %></td>
+                        <td><%= client.companyName %></td>
+                        <td><%= client.uniBusNo %></td>
+                        <td><%= client.address %></td>
+                        <td><%= client.city %></td>
+                        <td><%= client.district %></td>
+                        <td><%= client.country %></td>
+                        <td><%= client.postcode %></td>
+                        <td><%= client.contactPerson1 %><br />
+                            <%= client.contactPhone1 %><br />
+                            <%= client.contactEmail1 %></td>
+                        <td><%= client.contactPerson2 %><br />
+                            <%= client.contactPhone2 %><br />
+                            <%= client.contactEmail2 %></td>
+                        <td><%= client.active %></td>
+                        <td><%= momentTimezone(parseInt(client.updateTime)).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(parseInt(client.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="/clientsAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

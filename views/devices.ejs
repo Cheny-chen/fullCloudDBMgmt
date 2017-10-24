@@ -1,0 +1,49 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form action="" method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'devices', url:'devicesAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>deviceName</th>
+                    <th>gatewayID</th>
+                    <th>cloudID</th>
+                    <th>firmwareID</th>
+                    <th>fullModelID</th>
+                    <th>owner</th>
+                    <th>updateTime<br />
+                        createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% devicesData.forEach((device, cindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= cindex+1 %></th>
+                        <td><%= device._id %></td>
+                        <td><%= device.deviceName %></td>
+                        <td><%= device.gatewayID %></td>
+                        <td><%= device.cloudID %></td>
+                        <td><%= device.firmwareID %></td>
+                        <td><%= device.fullModelID %></td>
+                        <td><%= device.owner %></td>
+                        <td><%= device.updateTime %><br />
+                            <%= device.createTime %></td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-delete">Delete</button>
+                            <button type="button" class="btn btn-info btn-edit">Edit</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="/devicesAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

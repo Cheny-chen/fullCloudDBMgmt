@@ -1,0 +1,48 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form method="post" class="formOutline">
+        <div class="form-group row">
+            <label for="input_cloudName" class="col-sm-2 col-form-label">cloudName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_cloudName" name="cloudName" placeholder="cloud Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_mqttHost" class="col-sm-2 col-form-label">mqttHost</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_mqttHost" name="mqttHost" placeholder="mqtt Host">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_mqttPort" class="col-sm-2 col-form-label">mqttPort</label>
+            <div class="col-sm-10">
+                <input type="Number" class="form-control" id="input_mqttPort" name="mqttPort" placeholder="mqtt Port" value="1883">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">active</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="active" type="radio" class="custom-control-input" name="active" value="0">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">inactive</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="active" type="radio" class="custom-control-input" name="active" value="1" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">active</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/cloudsAddSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

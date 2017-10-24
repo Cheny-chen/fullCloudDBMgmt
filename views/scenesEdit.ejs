@@ -1,0 +1,45 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'scenes', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="input_id" placeholder="Scene id" value="<%= scene._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_scenesName" class="col-sm-2 col-form-label">scenesName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_scenesName" placeholder="scene Name" value="<%= scene.sceneName %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(scene.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(scene.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/scenesAddSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>
+<script>
+$('#input_sceneName').on("change", function(event) {
+    $(this).attr('name','sceneName');
+})
+</script>

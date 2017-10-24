@@ -1,0 +1,49 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'permissions', url:'permissions'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>parentID</th>
+                    <th>permissName</th>
+                    <th>snID</th>
+                    <th>identifyList</th>
+                    <th>updateTime<br />
+                        createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% permissionsData.forEach((permission, cindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= cindex+1 %></th>
+                        <td><%= permission._id %></td>
+                        <td><%= permission.parentID %></td>
+                        <td><%= permission.permissName %></td>
+                        <td><%= permission.snID %></td>
+                        <td><%= permission.identifyList %></td>
+                        <td><%= momentTimezone(parseInt(permission.updateTime)).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(parseInt(permission.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/permissionsDelete/<%= permission._id%>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/permissionsEdit/<%= permission._id%>">Edit</button>
+                            <button type="submit" class="btn btn-success btn-add" formaction="/permissionsAdd/<%= permission._id%>">Permit</button>
+                            <br />
+                            <button type="submit" class="btn btn-secondary btn-add" formaction="/groupsAdd/<%= permission._id%>">Group</button>
+                            <button type="submit" class="btn btn-dark btn-add" formaction="/automationsAdd/<%= permission._id%>">Auto</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <%# <button type="submit" class="btn btn-success btn-add" formaction="/permissionsAdd">Add</button>%>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

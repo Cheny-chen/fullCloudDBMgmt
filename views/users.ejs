@@ -1,0 +1,64 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form id="thisFrom" action="" method="get">
+        <%- include('partials/breadcrumb_1', {db:'users', url:'usersAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>lgoinID<br />
+                        password</th>
+                    <th>clientID</th>
+                    <th>fullName<br />
+                        email</th>
+                    <th>gender<br />
+                        ageRange</th>
+                    <th>occupation</th>
+                    <th>city</th>
+                    <th>country</th>
+                    <th>active</th>
+                    <th>lastLogin_ipv4<br />
+                        lastLogin_time</th>
+                    <th>updateTime<br />
+                        createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% usersData.forEach((user, uindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= uindex+1 %></th>
+                        <td><%= user._id %></td>
+                        <td><%= user.loginID %><br />
+                            <%= user.password%></td>
+                        <td><%= user.clientID %></td>
+                        <td><%= user.fullName %><br />
+                            <%= user.email %></td>
+                        <td><%= user.gender %><br />
+                            <%= user.ageRange %></td>
+                        <td><%= user.occupation %></td>
+                        <td><%= user.city %></td>
+                        <td><%= user.country %></td>
+                        <td><%= user.active %></td>
+                        <td><%= user.lastLogin_ipv4 %><br />
+                            <%= momentTimezone(parseInt(user.registTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(parseInt(user.updateTime)).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(parseInt(user.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="usersDelete/<%= user._id%>">Delete</button>
+                            <button type="submit" class="btn btn-warning btn-off" formaction="/cloudsOff/<%= user._id %>">Inactive</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="usersEdit/<%= user._id%>">Edit</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="usersAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

@@ -1,0 +1,91 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'permissions', action:'Permit'}) %>
+        <div class="form-group row">
+            <label for="input_parentID" class="col-sm-2 col-form-label">parentID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_parentID" name="parentID" readonly placeholder="user's permission ID" value="<%= _id %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_permissName" class="col-sm-2 col-form-label">permissName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_permissName" name="permissName" placeholder="permission Name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_snID" class="col-sm-2 col-form-label">snID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_snID" name="snID" placeholder="serial Number ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_itemList" class="col-sm-2 col-form-label">identifyList</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">enable</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked1" name="enable" type="radio" class="custom-control-input" value="0">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">disable</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input id="radioStacked2" name="enable" type="radio" class="custom-control-input" value="1" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">enable</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/permissionsAddSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

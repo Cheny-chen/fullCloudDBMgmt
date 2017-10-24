@@ -1,0 +1,46 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'clouds', url:'cloudsAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>cloudName</th>
+                    <th>mqttHost</th>
+                    <th>mqttPort</th>
+                    <th>active</th>
+                    <th>updateTime</th>
+                    <th>createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cloudsData.forEach((cloud, cindex) => {  %>
+                    <tr>
+                        <th scope="row"><%= cindex+1 %></th>
+                        <td><%= cloud._id %></td>
+                        <td><%= cloud.cloudName %></td>
+                        <td><%= cloud.mqttHost %></td>
+                        <td><%= cloud.mqttPort %></td>
+                        <td><%= cloud.active %></td>
+                        <td><%= momentTimezone(parseInt(cloud.updateTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(parseInt(cloud.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/cloudsDelete/<%= cloud._id %>">Delete</button>
+                            <button type="submit" class="btn btn-warning btn-off" formaction="/cloudsOff/<%= cloud._id %>">Inactive</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/cloudsEdit/<%= cloud._id %>">Edit</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="/cloudsAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

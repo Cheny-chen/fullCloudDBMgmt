@@ -1,0 +1,40 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container-fluid">
+    <form method="get" enctype="multipart/form-data">
+        <%- include('partials/breadcrumb_1', {db:'scenes', url:'scenesAdd'}) %>
+        <table class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>_id</th>
+                    <th>scenesName</th>
+                    <th>updateTime</th>
+                    <th>createTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% scenesData.forEach((scene, cindex) => {  %>
+                    <tr>
+                    <th scope="row"><%= cindex+1 %></th>
+                    <td><%= scene._id %></td>
+                    <td><%= scene.sceneName %></td>
+                    <td><%= momentTimezone(parseInt(scene.updateTime)).tz('Asia/Taipei').format('lll') %></td>
+                    <td><%= momentTimezone(parseInt(scene.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                    <td>
+                        <button type="submit" class="btn btn-danger btn-delete" formaction="/scenesDelete/<%= scene._id %>">Delete</button>
+                        <button type="submit" class="btn btn-info btn-edit" formaction="/scenesEdit/<%= scene._id %>">Edit</button>
+                    </td>
+                    </tr>
+                    <% })
+                %>
+            </tbody>
+        </table>
+        <div class="contain-button pull-right">
+            <button type="submit" class="btn btn-success btn-add" formaction="/scenesAdd">Add</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

@@ -1,0 +1,120 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'serialNumbers', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">loginID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" name="_id" readonly value="<%= serialNumber._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_snKey" class="col-sm-2 col-form-label">snKey</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_snKey" name="snKey" placeholder="serial Numbers Key" value="<%= serialNumber.snKey %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_clientID" class="col-sm-2 col-form-label">clientID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_clientID" name="clientID" placeholder="client ID" value="<%= serialNumber.clientID %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_gatewayList" class="col-sm-2 col-form-label">gatewayList</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[0]?serialNumber.gatewayList[0]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[1]?serialNumber.gatewayList[1]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[2]?serialNumber.gatewayList[2]:"" %>">
+            </div>
+            <label for="input_gatewayList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[3]?serialNumber.gatewayList[3]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[4]?serialNumber.gatewayList[4]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[5]?serialNumber.gatewayList[5]:"" %>">
+            </div>
+            <label for="input_gatewayList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[6]?serialNumber.gatewayList[6]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[7]?serialNumber.gatewayList[7]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[8]?serialNumber.gatewayList[8]:"" %>">
+            </div>
+            <label for="input_gatewayList" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[9]?serialNumber.gatewayList[9]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[10]?serialNumber.gatewayList[10]:"" %>">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control gatewayList" placeholder="gateway ID" value="<%= serialNumber.gatewayList[11]?serialNumber.gatewayList[11]:"" %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_registTime" class="col-sm-2 col-form-label">registTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_registTime" name="registTime" placeholder="YYYY-MM-DD" value="<%= serialNumber.registTime %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_endTime" class="col-sm-2 col-form-label">endTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_endTime" name="endTime" placeholder="YYYY-MM-DD" value="<%= serialNumber.endTime %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">active</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input name="active" type="radio" class="custom-control-input" value="0">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">disable</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input name="active" type="radio" class="custom-control-input" value="1" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">active</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(serialNumber.updateTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(serialNumber.createTime)).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/serialNumberAddSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>
+<script>
+$(".gatewayList").on("change", function(event) {
+    $(this).attr("name","gatewayList")
+})
+</script>
