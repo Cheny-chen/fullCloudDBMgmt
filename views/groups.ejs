@@ -2,7 +2,7 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container-fluid">
-    <form action="" method="get" enctype="multipart/form-data">
+    <form method="get" enctype="multipart/form-data">
         <%- include('partials/breadcrumb_1', {db:'groups', url:'groupsAdd'}) %>
         <table class="table table-responsive table-striped table-hover">
             <thead>
@@ -13,8 +13,8 @@
                     <th>permissID</th>
                     <th>deviceID</th>
                     <th>function</th>
-                    <th>updateTime</th>
-                    <th>createTime</th>
+                    <th>updateTime<br />
+                        createTime</th>
                     <th></th>
                 </tr>
             </thead>
@@ -27,11 +27,11 @@
                         <td><%= group.permissID %></td>
                         <td><%= group.action.deviceID %></td>
                         <td><%= group.action.functionList %></td>
-                        <td><%= group.updateTime %></td>
-                        <td><%= group.createTime %></td>
+                        <td><%= momentTimezone(group.updateTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(group.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
-                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/groupsDelete/<%= group._id %>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/groupsEdit/<%= group._id %>">Edit</button>
                         </td>
                     </tr>
                 <% }) %>

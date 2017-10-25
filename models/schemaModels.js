@@ -5,9 +5,9 @@ var UUID = mongoose.Types.UUID;
 var Long = mongoose.Schema.Types.Long;
 var log = 1;
 
-//var time = new Date().toISOString();
+var time = new Date().toISOString();
 // var time = Math.round(new Date().getTime() / 1000)
-var time = new Date().getTime()
+// var time = new Date().getTime()
 //===================================
 // 1. create a users schema
 //===================================
@@ -24,17 +24,17 @@ var usersSchema = new Schema({
     ageRange:   	{ type: String, required: false,
                       enum: ['-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79','80+'],
                       default: '30-39' },
-    occupation: 	{ type: String, required: false, default: "" },
-    city:       	{ type: String, required: false, default: "" },
-    country:    	{ type: String, required: false, default: "" },
+    occupation: 	{ type: String, required: false },
+    city:       	{ type: String, required: false },
+    country:    	{ type: String, required: false },
     active:       	{ type: Number, required: false,
                       min:0,
                       max: 1,
                       default: 1},
-    lastLogin_ipv4: { type: String, required: false, default: "" },
-    lastLogin_time: { type: Long,   required: false, default: "" },
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    lastLogin_ipv4: { type: String, required: false },
+    lastLogin_time: { type: Date,   required: false },
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 2. create a clients schema
@@ -43,23 +43,23 @@ var clientsSchema = new Schema({
     _id:            { type: String, required: true, unique: true},
     companyName:    { type: String, required: true},
     uniBusNo:       { type: String, required: true, unique: true},
-    address:        { type: String, required: true, default: "" },
-    city:           { type: String, required: true, default: "" },
-    district:       { type: String, required: true, default: "" },
-    country:        { type: String, required: true, default: "" },
-    postcode:       { type: String, required: true, default: "" },
-    contactPerson1: { type: String, required: true, default: "" },
-    contactPhone1:  { type: String, required: true, default: "" },
-    contactEmail1:  { type: String, required: true, default: "" },
-    contactPerson2: { type: String, required: false, default: "" },
-    contactPhone2:  { type: String, required: false, default: "" },
-    contactEmail2:  { type: String, required: false, default: "" },
+    address:        { type: String, required: true },
+    city:           { type: String, required: true },
+    district:       { type: String, required: true },
+    country:        { type: String, required: true },
+    postcode:       { type: String, required: true },
+    contactPerson1: { type: String, required: true },
+    contactPhone1:  { type: String, required: true },
+    contactEmail1:  { type: String, required: true },
+    contactPerson2: { type: String, required: false },
+    contactPhone2:  { type: String, required: false },
+    contactEmail2:  { type: String, required: false },
     active:         { type: Number, required: false,
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 3. create a serialNumbers schema
@@ -73,10 +73,10 @@ var serialNumbersSchema = new Schema({
                       min:0,
                       max: 1,
                       default: 1},
-    registTime:     { type: Long,   required: true, default: "" },
-    endTime:        { type: Long,   required: true, default: "" },
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    registTime:     { type: Date,   required: true },
+    endTime:        { type: Date,   required: true },
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 4. create a identifies schema
@@ -91,8 +91,8 @@ var identifiesSchema = new Schema({
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 5. create a identifyGroups schema
@@ -105,8 +105,8 @@ var identifyGroupsSchema = new Schema({
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 6. create a permissions schema
@@ -114,21 +114,21 @@ var identifyGroupsSchema = new Schema({
 var permissionsSchema = new Schema({
     _id:            { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     parentID:       { type: UUID,   required: false },
-    permissName:    { type: String,   required: false },
+    permissName:    { type: String, required: false },
     snID:           { type: UUID,   required: false },
     identifyList:   [String],
     enable:         { type: Number, required: false,
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 7. create a clouds schema
 //===================================
 var cloudsSchema = new Schema({
-    _id:            { type: UUID, required: true, unique: true, default: uuidv4(time) },
+    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     cloudName:      { type: String, required: true, unique: true },
     mqttHost:       { type: String, required: true },
     mqttPort:       { type: Number, required: true },
@@ -136,8 +136,8 @@ var cloudsSchema = new Schema({
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 8. create a deviceInfo schema
@@ -158,8 +158,8 @@ var deviceInfoSchema = new Schema({
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 9. create a devices schema
@@ -174,11 +174,11 @@ var devicesSchema = new Schema({
     functionList:   [{
         fullID:     { type: Number, required: false },
         value:      { type: String, required: false, default: "" },
-        updateTime: { type: Long,   required: false, default: time }
+        updateTime: { type: Date,   required: false, default: time }
     }],
     owner:          { type: String, required: false },
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 10. create a deviceGroups schema
@@ -191,8 +191,8 @@ var deviceGroupsSchema = new Schema({
                       min:0,
                       max: 1,
                       default: 1},
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 //===================================
 // 11. create a automations schema
@@ -240,8 +240,8 @@ var automationsSchema = new Schema({
                         min:0,
                         max: 1,
                         default: 0},
-    updateTime:       { type: Long,   required: false, default: time },
-    createTime:       { type: Long,   required: false, default: time }
+    updateTime:       { type: Date,   required: false, default: time },
+    createTime:       { type: Date,   required: false, default: time }
 });
 //===================================
 // 12. create a groups schema
@@ -250,17 +250,15 @@ var groupsSchema = new Schema({
     _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     groupName:        { type: String, required: true },
     permissID:        { type: UUID,   required: true, default: uuidv4(time) },
-    gatewayID:        { type: String, required: true },
     action:           [{
-        deviceList:   [String],
+        deviceID:   String,
         functionList: [{
             fullID:   { type: Number, required: false },
-            value:    { type: String, required: false, default: "" }
+            value:    { type: String, required: false }
         }]
     }],
-    mark:             { type: Number, required: false, default: 0 },
-    updateTime:       { type: Long,   required: false, default: time },
-    createTime:       { type: Long,   required: false, default: time }
+    updateTime:       { type: Date,   required: false, default: time },
+    createTime:       { type: Date,   required: false, default: time }
 });
 //===================================
 // 13. create a scenes schema
@@ -268,8 +266,8 @@ var groupsSchema = new Schema({
 var scenesSchema = new Schema({
     _id:            { type: Number, required: true, unique: true },
     sceneName:      { type: String, required: true },
-    updateTime:     { type: Long,   required: false, default: time },
-    createTime:     { type: Long,   required: false, default: time }
+    updateTime:     { type: Date,   required: false, default: time },
+    createTime:     { type: Date,   required: false, default: time }
 });
 // the schema is useless so far
 // we need to create a model using it

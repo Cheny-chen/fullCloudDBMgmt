@@ -74,21 +74,8 @@
         var obj = $(this).serializeJSON();
         var str = JSON.stringify(obj);
         console.log(str);
-        // $.post('/groupsAddSubmit', {data: obj}, function(result) {
-        //     // console.log("group: %j ", result);
-        // });
-        $.ajax({
-            data: str,
-            dataType: 'application/json',
-            url: '/groupsAddSubmit',
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            success: function (result) {
-                alert(result);
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
+        $.post('/groupsAddSubmit', {data: str}, function(result) {
+            // console.log("group: %j ", result);
         });
     })
 </script>

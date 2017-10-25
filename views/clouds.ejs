@@ -27,8 +27,8 @@
                         <td><%= cloud.mqttHost %></td>
                         <td><%= cloud.mqttPort %></td>
                         <td><%= cloud.active %></td>
-                        <td><%= momentTimezone(parseInt(cloud.updateTime)).tz('Asia/Taipei').format('lll') %></td>
-                        <td><%= momentTimezone(parseInt(cloud.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(cloud.updateTime).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(cloud.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete" formaction="/cloudsDelete/<%= cloud._id %>">Delete</button>
                             <button type="submit" class="btn btn-warning btn-off" formaction="/cloudsOff/<%= cloud._id %>">Inactive</button>

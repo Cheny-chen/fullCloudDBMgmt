@@ -104,13 +104,13 @@
         <div class="form-group row">
             <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(user.updateTime)).tz('Asia/Taipei').format('lll') %>">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(user.updateTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(user.updateTime)).tz('Asia/Taipei').format('lll') %>">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(user.createTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">

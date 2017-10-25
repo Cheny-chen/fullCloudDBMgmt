@@ -164,22 +164,6 @@ router.post('/clientsAddSubmit', function(req, res, next) {
         }
     });
 });
-router.post('/serialNumbersAddSubmit', function(req, res, next) {
-    console.log(typeof req.body);
-    console.log(req.body);
-
-    // 插入数据
-    clientsModel.create(req.body, function(err,result){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            console.log(result);
-            res.redirect('/clients');
-        }
-    });
-});
 router.get('/clientsEdit/:_id',function(req,res){
     var con = {
         _id : req.params._id
@@ -241,7 +225,6 @@ router.get('/serialNumbersAdd', function(req, res, next) {
     res.render('serialNumbersAdd');
 });
 router.post('/serialNumbersAddSubmit', function(req, res, next) {
-    console.log(typeof req.body);
     console.log(req.body);
 
     // 插入数据
@@ -289,7 +272,7 @@ router.post('/serialNumbersEditSubmit',function(req,res){
         }
     })
 })
-router.get('/serialNumbersDelete/:_id',function(req,res){
+router.get('/serialNumbersOff/:_id',function(req,res){
     // 条件
     var con = {
         _id : req.params._id
@@ -306,6 +289,22 @@ router.get('/serialNumbersDelete/:_id',function(req,res){
             // 说明有问题,跳转会添加用户的页面
             res.redirect('back');
         }else{
+            res.redirect('/serialNumbers');
+        }
+    })
+})
+router.get('/serialNumbersDelete/:_id',function(req,res){
+    var con = {
+        _id : req.params._id
+    }
+
+    serialNumbersModel.remove(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
             res.redirect('/serialNumbers');
         }
     })
@@ -654,8 +653,8 @@ router.get('/groupsAdd/:_id', function(req, res, next) {
 router.post('/groupsAddSubmit', function(req, res, next) {
     console.log(req.body.data);
     var data = JSON.parse(req.body.data)
-    // console.log(data.action);
-    插入数据
+    console.log(typeof data);
+    // 插入数据
     groupsModel.create(data, function(err,result){
         if(err){
             console.error(err);
@@ -663,11 +662,27 @@ router.post('/groupsAddSubmit', function(req, res, next) {
             res.redirect('back');
         }else{
             // 跳转首页
-            console.log(result);
             res.redirect('/groups');
         }
     });
 });
+router.get('/groupsDelete/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    // 删除
+    groupsModel.remove(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            res.redirect('/groups');
+        }
+    })
+})
 //===================================
 // 13. scenes CRUD
 //===================================

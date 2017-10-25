@@ -2,7 +2,7 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container-fluid">
-    <form action="" method="get" enctype="multipart/form-data">
+    <form method="get" enctype="multipart/form-data">
         <%- include('partials/breadcrumb_1', {db:'automations', url:'automationsAdd'}) %>
         <table class="table table-responsive table-striped table-hover">
             <thead>
@@ -19,8 +19,8 @@
                     <th>sceneID</th>
                     <th>enable</th>
                     <th>push</th>
-                    <th>updateTime</th>
-                    <th>createTime</th>
+                    <th>updateTime<br />
+                        createTime</th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,8 +39,8 @@
                         <td><%= automation.sceneID %></td>
                         <td><%= automation.enable %></td>
                         <td><%= automation.push %></td>
-                        <td><%= automation.updateTime %></td>
-                        <td><%= automation.createTime %></td>
+                        <td><%= momentTimezone(automation.updateTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(automation.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete">Delete</button>
                             <button type="submit" class="btn btn-info btn-edit">Edit</button>

@@ -27,8 +27,8 @@
                         <td><%= permission.permissName %></td>
                         <td><%= permission.snID %></td>
                         <td><%= permission.identifyList %></td>
-                        <td><%= momentTimezone(parseInt(permission.updateTime)).tz('Asia/Taipei').format('lll') %><br />
-                            <%= momentTimezone(parseInt(permission.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(permission.updateTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(permission.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete" formaction="/permissionsDelete/<%= permission._id%>">Delete</button>
                             <button type="submit" class="btn btn-info btn-edit" formaction="/permissionsEdit/<%= permission._id%>">Edit</button>

@@ -44,9 +44,9 @@
                         <td><%= user.country %></td>
                         <td><%= user.active %></td>
                         <td><%= user.lastLogin_ipv4 %><br />
-                            <%= momentTimezone(parseInt(user.registTime)).tz('Asia/Taipei').format('lll') %></td>
-                        <td><%= momentTimezone(parseInt(user.updateTime)).tz('Asia/Taipei').format('lll') %><br />
-                            <%= momentTimezone(parseInt(user.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                            <%= momentTimezone(user.lastLogin_time).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(user.updateTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(user.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete" formaction="usersDelete/<%= user._id%>">Delete</button>
                             <button type="submit" class="btn btn-warning btn-off" formaction="/cloudsOff/<%= user._id %>">Inactive</button>
