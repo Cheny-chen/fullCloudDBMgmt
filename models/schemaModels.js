@@ -200,7 +200,7 @@ var deviceGroupsSchema = new Schema({
 var automationsSchema = new Schema({
     _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     autoName:         { type: String, required: true },
-    permissID:        { type: UUID,   required: true, default: uuidv4(time) },
+    identifyID:       { type: UUID,   required: true },
     gatewayID:        { type: String, required: false },
     timeZone:         { type: String, required: false, default: "* * * * *" },
     trigger:          { type: String, required: true },
@@ -249,7 +249,7 @@ var automationsSchema = new Schema({
 var groupsSchema = new Schema({
     _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     groupName:        { type: String, required: true },
-    permissID:        { type: UUID,   required: true, default: uuidv4(time) },
+    identifyID:       { type: UUID,   required: true },
     action:           [{
         deviceID:   String,
         functionList: [{

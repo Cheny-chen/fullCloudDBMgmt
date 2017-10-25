@@ -14,7 +14,7 @@ var automationsModel = require('../models/schemaModels').automations;
 var groupsModel = require('../models/schemaModels').groups;
 var scenesModel = require('../models/schemaModels').scenes;
 /* GET UTC */
-var time = new Date().getTime();
+var time = new Date().toISOString();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Full Cloud Database Management' });
@@ -181,9 +181,9 @@ router.get('/clientsEdit/:_id',function(req,res){
 })
 router.post('/clientsEditSubmit',function(req,res){
     var con = {
-        _id : req.params._id
-    },
-    newData = req.body;
+            _id : req.params._id
+        },
+        newData = req.body;
 
     newData.updateTime = time;
     clientsModel.update(con, newData, function(err, data){
@@ -254,13 +254,14 @@ router.get('/serialNumbersEdit/:_id',function(req,res){
         }
     })
 })
-router.post('/serialNumbersEditSubmit',function(req,res){
+router.post('/serialNumbersEditSubmit/:_id',function(req,res){
     var con = {
-        _id : req.params._id
-    },
-    newData = req.body;
+            _id : req.params._id
+        },
+        newData = req.body;
 
     newData.updateTime = time;
+    console.log(JSON.stringify(newData))
     serialNumbersModel.update(con, newData, function(err, data){
         if(err){
             console.error(err);
@@ -346,10 +347,13 @@ router.get('/identifiesEdit/:_id',function(req,res){
         }
     })
 })
-router.post('/identifiesEditSubmit',function(req,res){
+router.post('/identifiesEditSubmit/:_id',function(req,res){
     var con = {
-        _id : req.params._id
-    }
+            _id : req.params._id
+        },
+        newData = req.body;
+
+    newData.updateTime = time;    
     identifiesModel.update(con, newData, function(err, data){
         if(err){
             console.error(err);

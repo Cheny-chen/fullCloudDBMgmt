@@ -19,6 +19,9 @@
 
 .capitalize { text-transform:capitalize; }
 
+.green { color: green; }
+.red { color: red; }
+
 footer {
     padding-top: 50px;
 }

@@ -1,0 +1,58 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'devices', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="input_id" placeholder="device id">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_deviceName" class="col-sm-2 col-form-label">deviceName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_deviceName" placeholder="device Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_gatewayID" class="col-sm-2 col-form-label">gatewayID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_gatewayID" placeholder="gateway ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_cloudID" class="col-sm-2 col-form-label">cloudID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_cloudID" placeholder="cloud ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_firmwareID" class="col-sm-2 col-form-label">firmwareID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_firmwareID" placeholder="firmware ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_fullModelID" class="col-sm-2 col-form-label">fullModelID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_fullModelID" placeholder="full Model ID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_owner" class="col-sm-2 col-form-label">owner</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_owner" placeholder="owner">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/devicesAddSubmit" formmethod="get">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

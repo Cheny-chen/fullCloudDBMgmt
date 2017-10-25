@@ -3,6 +3,7 @@
 <%- include('partials/header') %>
 <div class="container">
     <form method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'clouds', action:'Add'}) %>
         <div class="form-group row">
             <label for="input_cloudName" class="col-sm-2 col-form-label">cloudName</label>
             <div class="col-sm-10">

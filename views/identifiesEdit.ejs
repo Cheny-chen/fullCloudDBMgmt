@@ -3,30 +3,36 @@
 <%- include('partials/header') %>
 <div class="container">
     <form action="" method="post" class="formOutline">
-        <%- include('partials/breadcrumb_2', {db:'identifies', action:'Add'}) %>
+        <%- include('partials/breadcrumb_2', {db:'identifies', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" placeholder="identif ID" readonly value="<%= identify._id %>">
+            </div>
+        </div>
         <div class="form-group row">
             <label for="input_identifyName" class="col-sm-2 col-form-label">identifyName</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_identifyName" name="identifyName" placeholder="identif Name" required>
+                <input type="text" class="form-control" id="input_identifyName" placeholder="identif Name" required value="<%= identify.identifyName %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_isnID" class="col-sm-2 col-form-label">snID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_snID" name="snID" placeholder="sn ID" required>
+                <input type="text" class="form-control" id="input_snID" placeholder="sn ID" required value="<%= identify.snID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_idGroupID" class="col-sm-2 col-form-label">idGroupID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_idGroupID" name="idGroupID" placeholder="identify Group ID">
+                <input type="text" class="form-control" id="input_idGroupID" placeholder="identify Group ID" value="<%= identify.idGroupID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_deviceList" class="col-sm-2 col-form-label">deviceList</label>
             <% for(i=0; i<12; i++) { %>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control deviceList" placeholder="device ID">
+                    <input type="text" class="form-control deviceList" placeholder="device ID" value="<%= identify.deviceList[i]?identify.deviceList[i]:'' %>">
                 </div>
                 <% if((i+1)%3 == 0) { %>
                     <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
@@ -37,12 +43,12 @@
             <label for="input_active" class="col-sm-2 col-form-label">enable</label>
             <div class="col-sm-10">
                 <label class="custom-control custom-radio">
-                  <input id="radioStacked1" name="enable" type="radio" class="custom-control-input" value="0">
+                  <input type="radio" class="custom-control-input radio_enable" value="0" <%= identify.enable=='0'?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">disable</span>
                 </label>
                 <label class="custom-control custom-radio">
-                  <input id="radioStacked2" name="enable" type="radio" class="custom-control-input" value="1" checked>
+                  <input type="radio" class="custom-control-input radio_enable" value="1" <%= identify.enable=='1'?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">enable</span>
                 </label>
@@ -52,14 +58,26 @@
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
                 <button type="reset" class="btn btn-info btn-reset">Reset</button>
-                <button type="submit" class="btn btn-primary btn-submit" formaction="/identifiesAddSubmit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-submit" formaction="/identifiesEditSubmit/<%= identify._id %>">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
 <script>
+    $("#input_identifyName").on("change", function(event) {
+        $(this).attr("name","identifyName")
+    })
+    $("#input_snID").on("change", function(event) {
+        $(this).attr("name","snID")
+    })
+    $("#input_idGroupID").on("change", function(event) {
+        $(this).attr("name","idGroupID")
+    })
     $(".deviceList").on("change", function(event) {
         $(this).attr("name","deviceList")
+    })
+    $(".radio_enable").on("change", function(event) {
+        $(this).attr("name","enable")
     })
 </script>

@@ -12,8 +12,8 @@
                     <th>snKey</th>
                     <th>clientID</th>
                     <th>gatewayList</th>
-                    <th>registTime</th>
-                    <th>endTime</th>
+                    <th>registTime<br />
+                        endTime</th>
                     <th>active</th>
                     <th>updateTime<br />
                         createTime</th>
@@ -28,11 +28,11 @@
                         <td><%= serialNumber.snKey %></td>
                         <td><%= serialNumber.clientID %></td>
                         <td><%= serialNumber.gatewayList %></td>
-                        <td><%= serialNumber.registTime %></td>
-                        <td><%= serialNumber.endTime %></td>
+                        <td><%= momentTimezone(serialNumber.registTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(serialNumber.endTime).tz('Asia/Taipei').format('lll') %></td>
                         <td><%= serialNumber.active %></td>
-                        <td><%= momentTimezone(parseInt(serialNumber.updateTime)).tz('Asia/Taipei').format('lll') %><br />
-                            <%= momentTimezone(parseInt(serialNumber.createTime)).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(serialNumber.updateTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(serialNumber.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete" formaction="/serialNumbersDelete/<%= serialNumber._id%>">Delete</button>
                             <button type="submit" class="btn btn-info btn-edit" formaction="/serialNumbersEdit/<%= serialNumber._id%>">Edit</button>
