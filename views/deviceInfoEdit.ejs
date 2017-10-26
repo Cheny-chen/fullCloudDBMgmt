@@ -2,7 +2,7 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container">
-    <form action="" method="post" enctype="multipart/form-data" class="formOutline">
+    <form method="post" enctype="multipart/form-data" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'deviceInfo', action:'Edit'}) %>
         <div class="form-group row">
             <label for="input_id" class="col-sm-2 col-form-label">_id</label>
@@ -19,24 +19,11 @@
         <div class="form-group row">
             <label for="input_sfunctionList" class="col-sm-2 col-form-label">sfunctionList</label>
             <div class="col-sm-1">
-                <input type="text" class="form-control" id="input_fullID" value="0" readonly>
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_fullID" placeholder="富欣裝置型號">
-            </div>
-            <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="1" readonly>
             </div>
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="顯示圖示">
             </div>
-            <div class="col-sm-1">
-                <input type="text" class="form-control" id="input_fullID" value="2" readonly>
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_fullID" placeholder="暱稱">
-            </div>
-            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="3" readonly>
             </div>
@@ -49,13 +36,13 @@
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="Slev">
             </div>
+            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="5" readonly>
             </div>
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="觸發時間">
             </div>
-            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="6" readonly>
             </div>
@@ -68,13 +55,13 @@
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="Level1 情境Type">
             </div>
+            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="8" readonly>
             </div>
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="裝置協議">
             </div>
-            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="9" readonly>
             </div>
@@ -87,13 +74,13 @@
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="韌體版本">
             </div>
+            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="11" readonly>
             </div>
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="韌體型號">
             </div>
-            <label for="input_fullID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-1">
                 <input type="text" class="form-control" id="input_fullID" value="12" readonly>
             </div>
@@ -106,46 +93,17 @@
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="input_fullID" placeholder="RF ID">
             </div>
-            <div class="col-sm-1">
-                <input type="text" class="form-control" id="input_fullID" value="14" readonly>
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_fullID" placeholder="低電量顯示">
-            </div>
         </div>
         <div class="form-group row">
             <label for="input_itemList" class="col-sm-2 col-form-label">dfunctionList</label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
+            <% for(i=0; i<20; i++) { %>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control input_itemList" placeholder="full ID">
+                </div>
+                <% if((i+1)%5 == 0) { %>
+                    <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+                <%}
+            }%>
         </div>
         <div class="form-group row">
             <label for="input_isAuto" class="col-sm-2 col-form-label">isAuto</label>
@@ -180,8 +138,8 @@
         <div class="form-group row">
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
-                <button type="reset" class="btn btn-info btn-submit">Reset</button>
-                <button type="submit" class="btn btn-primary btn-reset" formaction="/deviceInfoAddSubmit" formmethod="post">Submit</button>
+                <button type="reset" class="btn btn-info btn-reset">Reset</button>
+                <button type="submit" class="btn btn-primary btn-submit" formaction="/deviceInfoAddSubmit">Submit</button>
             </div>
         </div>
     </form>

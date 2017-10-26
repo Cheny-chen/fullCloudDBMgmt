@@ -28,8 +28,8 @@
                         <td><%= serialNumber.snKey %></td>
                         <td><%= serialNumber.clientID %></td>
                         <td><%= serialNumber.gatewayList %></td>
-                        <td><%= momentTimezone(serialNumber.registTime).tz('Asia/Taipei').format('lll') %><br />
-                            <%= momentTimezone(serialNumber.endTime).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(serialNumber.registTime).tz('Asia/Taipei').format('L') %><br />
+                            <%= momentTimezone(serialNumber.endTime).tz('Asia/Taipei').format('L') %></td>
                         <td><%= serialNumber.active %></td>
                         <td><%= momentTimezone(serialNumber.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(serialNumber.createTime).tz('Asia/Taipei').format('lll') %></td>

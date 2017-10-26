@@ -32,12 +32,12 @@
             <label for="input_active" class="col-sm-2 col-form-label">active</label>
             <div class="col-sm-10">
                 <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" value="0" <%= cloud.active==0?'checked':'' %>>
+                  <input type="radio" class="custom-control-input radio_active" value="0" <%= cloud.active==0?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">inactive</span>
                 </label>
                 <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" value="1" <%= cloud.active==1?'checked':'' %>>
+                  <input type="radio" class="custom-control-input radio_active" value="1" <%= cloud.active==1?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">active</span>
                 </label>
@@ -46,22 +46,36 @@
         <div class="form-group row">
             <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(cloud.updateTime)).tz('Asia/Taipei').format('lll') %>">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(cloud.updateTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(cloud.updateTime)).tz('Asia/Taipei').format('lll') %>">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(cloud.updateTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
-                <button type="reset" class="btn btn-info btn-submit">Reset</button>
-                <button type="submit" class="btn btn-primary btn-reset" formaction="/cludsEditSubmit/<%= cloud._id %>">Submit</button>
+                <button type="reset" class="btn btn-info btn-reset">Reset</button>
+                <button type="submit" class="btn btn-primary btn-submit" formaction="/cludsEditSubmit/<%= cloud._id %>">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $('#input_cloudName').on("change", function(event) {
+        $(this).attr('name','cloudName');
+    })
+    $('#input_mqttHost').on("change", function(event) {
+        $(this).attr('name','mqttHost');
+    })
+    $('#input_mqttPort').on("change", function(event) {
+        $(this).attr('name','mqttPort');
+    })
+    $('.radio_active').on("change", function(event) {
+        $(this).attr('name','active');
+    })
+</script>

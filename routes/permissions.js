@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
         sort : {_id:1}
     },function(err,data){
         // 分配数据
-        console.log(data)
         res.render('permissions',{permissionsData:data});
         // }).sort({_id:-1});
     })

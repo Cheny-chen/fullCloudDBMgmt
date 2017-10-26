@@ -24,45 +24,14 @@
         </div>
         <div class="form-group row">
             <label for="input_itemList" class="col-sm-2 col-form-label">identifyList</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" name="identifyList" placeholder="identify ID">
-            </div>
+            <% for(i=0; i<12; i++) { %>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control input_itemList" placeholder="identify ID">
+                </div>
+                <% if((i+1)%3 == 0) { %>
+                    <label for="input_itemList" class="col-sm-2 col-form-label"></label>
+                <%}
+            }%>
         </div>
         <div class="form-group row">
             <label for="input_active" class="col-sm-2 col-form-label">enable</label>
@@ -89,3 +58,8 @@
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $(".input_itemList").on("change", function(event) {
+        $(this).attr("name","identifyID")
+    })
+</script>

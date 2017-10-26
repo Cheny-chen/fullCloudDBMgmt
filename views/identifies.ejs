@@ -34,6 +34,9 @@
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete" formaction="/identifiesDelete/<%= identify._id %>">Delete</button>
                             <button type="submit" class="btn btn-info btn-edit" formaction="/identifiesEdit/<%= identify._id %>">Edit</button>
+                            <br />
+                            <button type="submit" class="btn btn-secondary btn-add" formaction="/groupsAdd/<%= identify._id%>">Group</button>
+                            <button type="submit" class="btn btn-dark btn-add" formaction="/automationsAdd/<%= identify._id%>">Auto</button>
                         </td>
                     </tr>
                 <% }) %>

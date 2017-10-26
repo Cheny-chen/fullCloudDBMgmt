@@ -10,8 +10,7 @@
                     <th>#</th>
                     <th>_id</th>
                     <th>groupName</th>
-                    <th>itemList</th>
-                    <th>enable</th>
+                    <th>snID</th>
                     <th>updateTime<br />
                         createTime</th>
                     <th></th>
@@ -23,8 +22,7 @@
                         <th scope="row"><%= cindex+1 %></th>
                         <td><%= deviceGroup._id %></td>
                         <td><%= deviceGroup.groupName %></td>
-                        <td><%= deviceGroup.itemList %></td>
-                        <td><%= deviceGroup.enable %></td>
+                        <td><%= deviceGroup.snID %></td>
                         <td><%= momentTimezone(deviceGroup.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(deviceGroup.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>

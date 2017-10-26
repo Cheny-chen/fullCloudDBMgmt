@@ -50,8 +50,8 @@
                         <td><%= momentTimezone(client.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(client.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
-                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/clientsDelete/<%= client._id %>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/clientsEdit/<%= client._id %>">Edit</button>
                         </td>
                     </tr>
                 <% }) %>

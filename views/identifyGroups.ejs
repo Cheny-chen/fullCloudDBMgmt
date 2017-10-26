@@ -10,8 +10,7 @@
                     <th>#</th>
                     <th>_id</th>
                     <th>groupName</th>
-                    <th>itemList</th>
-                    <th>active</th>
+                    <th>snID</th>
                     <th>updateTime<br />
                         createTime</th>
                     <th></th>
@@ -23,13 +22,12 @@
                         <th scope="row"><%= cindex+1 %></th>
                         <td><%= identifyGroup._id %></td>
                         <td><%= identifyGroup.groupName %></td>
-                        <td><%= identifyGroup.itemList %></td>
-                        <td><%= identifyGroup.enable %></td>
+                        <td><%= identifyGroup.snID %></td>
                         <td><%= momentTimezone(identifyGroup.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(identifyGroup.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
-                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/identifyGroupsDelete/<%= identifyGroup._id %>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/identifyGroupsEdit/<%= identifyGroup._id %>">Edit</button>
                         </td>
                     </tr>
                 <% }) %>

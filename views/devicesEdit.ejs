@@ -2,57 +2,89 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container">
-    <form action="" method="post" enctype="multipart/form-data" class="formOutline">
+    <form method="post" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'devices', action:'Edit'}) %>
         <div class="form-group row">
             <label for="input_id" class="col-sm-2 col-form-label">_id</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="input_id" placeholder="device id">
+                <input type="text" class="form-control" id="input_id" placeholder="device id" readonly value="<%= device._id %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_deviceName" class="col-sm-2 col-form-label">deviceName</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_deviceName" placeholder="device Name">
+                <input type="text" class="form-control" id="input_deviceName" placeholder="device Name" value="<%= device.deviceName %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_gatewayID" class="col-sm-2 col-form-label">gatewayID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_gatewayID" placeholder="gateway ID">
+                <input type="text" class="form-control" id="input_gatewayID" placeholder="gateway ID" value="<%= device.gatewayID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_cloudID" class="col-sm-2 col-form-label">cloudID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_cloudID" placeholder="cloud ID">
+                <input type="text" class="form-control" id="input_cloudID" placeholder="cloud ID" value="<%= device.cloudID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_firmwareID" class="col-sm-2 col-form-label">firmwareID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_firmwareID" placeholder="firmware ID">
+                <input type="text" class="form-control" id="input_firmwareID" placeholder="firmware ID" value="<%= device.firmwareID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_fullModelID" class="col-sm-2 col-form-label">fullModelID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_fullModelID" placeholder="full Model ID">
+                <input type="text" class="form-control" id="input_fullModelID" placeholder="full Model ID" value="<%= device.fullModelID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_owner" class="col-sm-2 col-form-label">owner</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_owner" placeholder="owner">
+                <input type="text" class="form-control" id="input_owner" placeholder="owner" value="<%= device.owner %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(device.updateTime).tz('Asia/Taipei').format('lll') %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(device.updateTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
-                <button type="reset" class="btn btn-info btn-submit">Reset</button>
-                <button type="submit" class="btn btn-primary btn-reset" formaction="/devicesAddSubmit" formmethod="get">Submit</button>
+                <button type="reset" class="btn btn-info btn-reset">Reset</button>
+                <button type="submit" class="btn btn-primary btn-submit" formaction="/devicesEditSubmit/<%= device._id %>">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $('#input_deviceName').on("change", function(event) {
+        $(this).attr('name','deviceName');
+    })
+    $('#input_gatewayID').on("change", function(event) {
+        $(this).attr('name','gatewayID');
+    })
+    $('#input_cloudID').on("change", function(event) {
+        $(this).attr('name','cloudID');
+    })
+    $('#input_firmwareID').on("change", function(event) {
+        $(this).attr('name','firmwareID');
+    })
+    $('#input_fullModelID').on("change", function(event) {
+        $(this).attr('name','fullModelID');
+    })
+    $('#input_owner').on("change", function(event) {
+        $(this).attr('name','owner');
+    })
+</script>

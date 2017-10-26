@@ -34,8 +34,8 @@
                         <td><%= momentTimezone(device.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(device.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-delete">Delete</button>
-                            <button type="button" class="btn btn-info btn-edit">Edit</button>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/devicesDelete/<%= device._id %>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/devicesEdit/<%= device._id %>">Edit</button>
                         </td>
                     </tr>
                 <% }) %>

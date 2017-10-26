@@ -68,7 +68,7 @@ router.get('/usersEdit/:_id',function(req,res){
         }
     })
 })
-router.post('/usersEditSbumit/:_id',function(req,res){
+router.post('/usersEditSubmit/:_id',function(req,res){
     var con = {
         _id : req.params._id
     }
@@ -175,11 +175,11 @@ router.get('/clientsEdit/:_id',function(req,res){
             res.redirect('back');
         }else{
             // 跳转首页
-            res.render('clientsEdit',{serialNumber:data});
+            res.render('clientsEdit',{client:data});
         }
     })
 })
-router.post('/clientsEditSubmit',function(req,res){
+router.post('/clientsEditSubmit/:_id',function(req,res){
     var con = {
             _id : req.params._id
         },
@@ -201,14 +201,10 @@ router.get('/clientsDelete/:_id',function(req,res){
     // 条件
     var con = {
         _id : req.params._id
-    },
-    newData = {
-        active : 0,
-        updateTime: updateTime
-    };
+    }
 
     // 删除
-    serialNumbersModel.update(con, newData, function(err, data){
+    clientsModel.remove(con, function(err, data){
         if(err){
             console.error(err);
             // 说明有问题,跳转会添加用户的页面
@@ -353,7 +349,7 @@ router.post('/identifiesEditSubmit/:_id',function(req,res){
         },
         newData = req.body;
 
-    newData.updateTime = time;    
+    newData.updateTime = time;
     identifiesModel.update(con, newData, function(err, data){
         if(err){
             console.error(err);
@@ -388,7 +384,7 @@ router.get('/identifiesDelete/:_id',function(req,res){
 router.get('/identifyGroupsAdd', function(req, res, next) {
     res.render('identifyGroupsAdd');
 });
-router.post('/identifyGroupsSubmit', function(req, res, next) {
+router.post('/identifyGroupsAddSubmit', function(req, res, next) {
     console.log(typeof req.body);
     console.log(req.body);
 
@@ -408,7 +404,7 @@ router.get('/identifyGroupsEdit/:_id',function(req,res){
     var con = {
         _id : req.params._id
     }
-    serialNumbersModel.findOne(con, function(err, data){
+    identifyGroupsModel.findOne(con, function(err, data){
         if(err){
             console.error(err);
             // 说明有问题,跳转会添加用户的页面
@@ -419,7 +415,7 @@ router.get('/identifyGroupsEdit/:_id',function(req,res){
         }
     })
 })
-router.post('/identifyGroupsEditSubmit',function(req,res){
+router.post('/identifyGroupsEditSubmit/:_id',function(req,res){
     var con = {
         _id : req.params._id
     },
@@ -441,14 +437,10 @@ router.get('/identifyGroupsDelete/:_id',function(req,res){
     // 条件
     var con = {
         _id : req.params._id
-    },
-    newData = {
-        active : 0,
-        updateTime: updateTime
-    };
+    }
 
     // 删除
-    identifyGroupsModel.update(con, newData, function(err, data){
+    identifyGroupsModel.remove(con, function(err, data){
         if(err){
             console.error(err);
             // 说明有问题,跳转会添加用户的页面
@@ -490,6 +482,7 @@ router.get('/permissionsEdit/:_id',function(req,res){
             // 说明有问题,跳转会添加用户的页面
             res.redirect('back');
         }else{
+            console.log(data);
             // 跳转首页
             res.render('permissionsEdit',{permission:data});
         }
@@ -627,24 +620,260 @@ router.get('/cloudsOff/:_id',function(req,res){
 router.get('/deviceInfoAdd', function(req, res, next) {
     res.render('deviceInfoAdd');
 });
+router.post('/deviceInfoAddSubmit', function(req, res, next) {
+    console.log(req.body);
+
+    // 插入数据
+    // deviceInfoModel.create(req.body, function(err,result){
+    //     if(err){
+    //         console.error(err);
+    //         // 说明有问题,跳转会添加用户的页面
+    //         res.redirect('back');
+    //     }else{
+    //         console.log(result);
+    //         res.redirect('/deviceInfo');
+    //     }
+    // });
+});
+router.get('/deviceInfoEdit/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    deviceInfoModel.findOne(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.render('deviceInfoEdit',{deviceInfo:data});
+        }
+    })
+})
+router.post('/deviceInfoEditSubmit/:_id',function(req,res){
+    // 条件
+    var con = {
+            _id : req.params._id
+        },
+        newData = req.body;
+
+    newData.updateTime = time;
+    deviceInfoModel.update(con, newData, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.redirect('deviceInfo');
+        }
+    })
+})
+router.get('/deviceInfoDelete/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    // 删除
+    deviceInfoModel.remove(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            res.redirect('/deviceInfo');
+        }
+    })
+})
 //===================================
 // 9. devices CRUD
 //===================================
 router.get('/devicesAdd', function(req, res, next) {
     res.render('devicesAdd');
 });
+router.post('/devicesAddSubmit', function(req, res, next) {
+    console.log(req.body);
+
+    // 插入数据
+    devicesModel.create(req.body, function(err,result){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            console.log(result);
+            res.redirect('/devices');
+        }
+    });
+});
+router.get('/devicesEdit/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    devicesModel.findOne(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.render('devicesEdit',{device:data});
+        }
+    })
+})
+router.post('/devicesEditSubmit/:_id',function(req,res){
+    // 条件
+    var con = {
+            _id : req.params._id
+        },
+        newData = req.body;
+
+    newData.updateTime = time;
+    devicesModel.update(con, newData, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.redirect('/devices');
+        }
+    })
+})
+router.get('/devicesDelete/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    // 删除
+    devicesModel.remove(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            res.redirect('/devices');
+        }
+    })
+})
 //===================================
 // 10. deviceGroups CRUD
 //===================================
 router.get('/deviceGroupsAdd', function(req, res, next) {
     res.render('deviceGroupsAdd');
 });
+router.post('/deviceGroupsAddSubmit', function(req, res, next) {
+    console.log(req.body);
+
+    // 插入数据
+    deviceGroupsModel.create(req.body, function(err,result){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            console.log(result);
+            res.redirect('/deviceGroups');
+        }
+    });
+});
+router.get('/deviceGroupsEdit/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    deviceGroupsModel.findOne(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.render('deviceGroupsEdit',{deviceGroup:data});
+        }
+    })
+})
+router.post('/deviceGroupsEditSubmit/:_id',function(req,res){
+    // 条件
+    var con = {
+            _id : req.params._id
+        },
+        newData = req.body;
+
+    newData.updateTime = time;
+    deviceGroupsModel.update(con, newData, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.redirect('devices');
+        }
+    })
+})
+router.get('/deviceGroupsDelete/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    // 删除
+    deviceGroupsModel.remove(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            res.redirect('/deviceGroups');
+        }
+    })
+})
 //===================================
 // 11. automations CRUD
 //===================================
 router.get('/automationsAdd', function(req, res, next) {
     res.render('automationsAdd');
 });
+router.post('/automationsAddSubmit', function(req, res, next) {
+    console.log(req.body);
+
+    // 插入数据
+    automationsModel.create(req.body, function(err,result){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            console.log(result);
+            res.redirect('/automations');
+        }
+    });
+});
+router.get('/automationsDelete/:_id',function(req,res){
+    // 条件
+    var con = {
+        _id : req.params._id
+    }
+
+    // 删除
+    automationsModel.remove(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            res.redirect('/automations');
+        }
+    })
+})
 //===================================
 // 12. groups CRUD
 //===================================
@@ -720,7 +949,7 @@ router.get('/scenesEdit/:_id',function(req,res){
             res.redirect('back');
         }else{
             // 跳转首页
-            res.render('scenes',{scene:data});
+            res.render('scenesEdit',{scene:data});
         }
     })
 })

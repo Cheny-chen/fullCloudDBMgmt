@@ -7,14 +7,14 @@ var log = 1;
 
 var time = new Date().toISOString();
 // var time = Math.round(new Date().getTime() / 1000)
-// var time = new Date().getTime()
+var unix = new Date().getTime();
 //===================================
 // 1. create a users schema
 //===================================
 var usersSchema = new Schema({
-    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(unix), ref: 'permissions' },
     loginID:    	{ type: String, required: true, unique: true},
-    clientID:   	{ type: String, required: true},
+    clientID:   	{ type: String, required: false, ref: 'clients'},
     fullName:   	{ type: String, required: true},
     password:   	{ type: String, required: true},
     email:      	{ type: String, required: true, unique: true},
@@ -36,6 +36,7 @@ var usersSchema = new Schema({
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+usersSchema.index({loginID:1, email:1},{unique:true})
 //===================================
 // 2. create a clients schema
 //===================================
@@ -65,9 +66,9 @@ var clientsSchema = new Schema({
 // 3. create a serialNumbers schema
 //===================================
 var serialNumbersSchema = new Schema({
-    _id:            { type: UUID, required: true, unique: true, default: uuidv4(time) },
+    _id:            { type: UUID, required: true, unique: true, default: uuidv4(unix) },
     snKey:          { type: String, required: true, unique: true},
-    clientID:       { type: String, required: true},
+    clientID:       { type: String, required: true, ref: 'clients'},
     gatewayList:    [String],
     active:         { type: Number, required: false,
                       min:0,
@@ -78,14 +79,16 @@ var serialNumbersSchema = new Schema({
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+serialNumbersSchema.index({snKey:'text'}, {unique: true});
+serialNumbersSchema.index({clientID: 1})
 //===================================
 // 4. create a identifies schema
 //===================================
 var identifiesSchema = new Schema({
-    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(unix) },
     identifyName:   { type: String, required: true},
-    snID:           { type: String, required: true},
-    idGroupID:      { type: String, required: false},
+    snID:           { type: UUID,   required: true, ref: 'serialNumbers'},
+    idGroupID:      { type: UUID,   required: false, ref: 'identifyGroups'},
     deviceList:     [String],
     enable:         { type: Number, required: false,
                       min:0,
@@ -98,25 +101,22 @@ var identifiesSchema = new Schema({
 // 5. create a identifyGroups schema
 //===================================
 var identifyGroupsSchema = new Schema({
-    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
     groupName:      { type: String, required: true},
-    itemList:       [String],
-    enable:         { type: Number, required: false,
-                      min:0,
-                      max: 1,
-                      default: 1},
+    snID:           { type: UUID,   required: true, ref: 'serialNumbers'},
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+identifyGroupsSchema.index({snID:1})
 //===================================
 // 6. create a permissions schema
 //===================================
 var permissionsSchema = new Schema({
-    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(unix), ref: 'users' },
     parentID:       { type: UUID,   required: false },
     permissName:    { type: String, required: false },
-    snID:           { type: UUID,   required: false },
-    identifyList:   [String],
+    snID:           { type: UUID,   required: false, ref: 'serialNumbers' },
+    identifyList:   { type: [String], required: false, ref: 'identifies' },
     enable:         { type: Number, required: false,
                       min:0,
                       max: 1,
@@ -124,11 +124,12 @@ var permissionsSchema = new Schema({
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+permissionsSchema.index({parentID:1, snID:1})
 //===================================
 // 7. create a clouds schema
 //===================================
 var cloudsSchema = new Schema({
-    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
     cloudName:      { type: String, required: true, unique: true },
     mqttHost:       { type: String, required: true },
     mqttPort:       { type: Number, required: true },
@@ -143,7 +144,7 @@ var cloudsSchema = new Schema({
 // 8. create a deviceInfo schema
 //===================================
 var deviceInfoSchema = new Schema({
-    _id:            { type: String, required: true },
+    _id:            { type: String, required: true, ref: 'devices' },
     fullModelID:    { type: String, required: true, ref: 'devices' },
     static_function: [{
         fullID:     { type: Number, required: false },
@@ -161,6 +162,7 @@ var deviceInfoSchema = new Schema({
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+deviceInfoSchema.index({fullModelID:1})
 //===================================
 // 9. create a devices schema
 //===================================
@@ -168,42 +170,41 @@ var devicesSchema = new Schema({
     _id:            { type: String, required: true, unique: true },
     deviceName:     { type: String, required: false },
     gatewayID:      { type: String, required: false },
-    cloudID:        { type: UUID,   required: false },
-    firmwareID:     { type: String, required: true },
-    fullModelID:    { type: String, required: true },
+    cloudID:        { type: UUID,   required: false, ref: 'clouds' },
+    firmwareID:     { type: String, required: false, ref: 'deviceInfo' },
+    fullModelID:    { type: String, required: false, ref: 'deviceInfo' },
     functionList:   [{
         fullID:     { type: Number, required: false },
         value:      { type: String, required: false, default: "" },
         updateTime: { type: Date,   required: false, default: time }
     }],
-    owner:          { type: String, required: false },
+    deGroupID:      { type: UUID,   required: false, ref: 'deviceGroups' },
+    owner:          { type: UUID,   required: false, ref: 'permissions' },
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+devicesSchema.index({gatewayID:1, cloudID:1, firmwareID:1, fullModelID:1, deGroupID:1})
 //===================================
 // 10. create a deviceGroups schema
 //===================================
 var deviceGroupsSchema = new Schema({
     _id:            { type: String, required: true, unique: true},
     groupName:      { type: String, required: true },
-    itemList:       [String],
-    enable:         { type: Number, required: false,
-                      min:0,
-                      max: 1,
-                      default: 1},
+    snID:           { type: UUID,   required: true, ref: 'serialNumbers'},
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+deviceGroupsSchema.index({snID:1})
 //===================================
 // 11. create a automations schema
 //===================================
 var automationsSchema = new Schema({
-    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
     autoName:         { type: String, required: true },
-    identifyID:       { type: UUID,   required: true },
-    gatewayID:        { type: String, required: false },
+    identifyID:       { type: UUID,   required: true, ref: 'identifies' },
+    gatewayID:        { type: String, required: false, ref: 'devices' },
     timeZone:         { type: String, required: false, default: "* * * * *" },
-    trigger:          { type: String, required: true },
+    trigger:          { type: String, required: true, ref: 'devices' },
     triggerFunction:  [{
         fullID:       { type: Number, required: false },
         value:        { type: String, required: false, default: "" }
@@ -228,7 +229,7 @@ var automationsSchema = new Schema({
             delay:    { type: Number, required: false, default: 0 }
         }
     }],
-    sceneID:          { type: Number, required: false,
+    sceneID:          { type: Number, required: false, ref: 'scenes',
                         min:0,
                         max: 3,
                         default: 0},
@@ -243,13 +244,14 @@ var automationsSchema = new Schema({
     updateTime:       { type: Date,   required: false, default: time },
     createTime:       { type: Date,   required: false, default: time }
 });
+automationsSchema.index({idGroupID:1, gatewayID:1})
 //===================================
 // 12. create a groups schema
 //===================================
 var groupsSchema = new Schema({
-    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
+    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
     groupName:        { type: String, required: true },
-    identifyID:       { type: UUID,   required: true },
+    identifyID:       { type: UUID,   required: true, ref: 'identifies' },
     action:           [{
         deviceID:   String,
         functionList: [{
@@ -260,6 +262,7 @@ var groupsSchema = new Schema({
     updateTime:       { type: Date,   required: false, default: time },
     createTime:       { type: Date,   required: false, default: time }
 });
+groupsSchema.index({idGroupID:1})
 //===================================
 // 13. create a scenes schema
 //===================================
@@ -269,6 +272,7 @@ var scenesSchema = new Schema({
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
+unix = 0;
 // the schema is useless so far
 // we need to create a model using it
 var users = mongoose.model('users', usersSchema);

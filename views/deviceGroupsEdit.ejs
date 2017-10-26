@@ -5,87 +5,50 @@
     <form method="post" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'deviceGroups', action:'Edit'}) %>
         <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" placeholder="device group ID" readonly value="<%= deviceGroup._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="input_groupName" class="col-sm-2 col-form-label">groupName</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_groupName" placeholder="group Name">
+                <input type="text" class="form-control" id="input_groupName" placeholder="group Name" value="<%= deviceGroup.groupName %>">
             </div>
         </div>
         <div class="form-group row">
-            <label for="input_itemList" class="col-sm-2 col-form-label">itemList</label>
+            <label for="input_itemList" class="col-sm-2 col-form-label">snID</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="input_active" class="col-sm-2 col-form-label">enable</label>
-            <div class="col-sm-10">
-                <label class="custom-control custom-radio">
-                  <input name="active" type="radio" class="custom-control-input" value="0">
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">disable</span>
-                </label>
-                <label class="custom-control custom-radio">
-                  <input name="active" type="radio" class="custom-control-input" value="1" checked>
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">enable</span>
-                </label>
+                <input type="text" class="form-control" id="input_itemList" placeholder="serial Number ID" value="<%= deviceGroup.snID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_updatTime" class="col-sm-2 col-form-label">updateTime</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(parseInt(deviceGroup.updateTime)).tz('Asia/Taipei').format('lll') %>">
+                <input type="text" class="form-control" id="input_updateTime" readonly value="<%= momentTimezone(deviceGroup.updateTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_updatTime" class="col-sm-2 col-form-label">createTime</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(parseInt(deviceGroup.updateTime)).tz('Asia/Taipei').format('lll') %>">
+                <input type="text" class="form-control" id="input_createTime" readonly value="<%= momentTimezone(deviceGroup.updateTime).tz('Asia/Taipei').format('lll') %>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
-                <button type="reset" class="btn btn-info btn-submit">Reset</button>
-                <button type="submit" class="btn btn-primary btn-reset" formaction="/deviceGroupsEditSubmit/<%= deviceGroup._id %>">Submit</button>
+                <button type="reset" class="btn btn-info btn-reset">Reset</button>
+                <button type="submit" class="btn btn-primary btn-submit" formaction="/deviceGroupsEditSubmit/<%= deviceGroup._id %>">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $('#input_groupName').on("change", function(event) {
+        $(this).attr('name','groupName');
+    })
+    $('#input_snID').on("change", function(event) {
+        $(this).attr('name','snID');
+    })
+</script>

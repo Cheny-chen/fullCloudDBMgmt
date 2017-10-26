@@ -1,0 +1,154 @@
+<%- include('partials/head') %>
+<!-- 引入 Nevigator 在 header  -->
+<%- include('partials/header') %>
+<div class="container">
+    <form action="" method="post" class="formOutline">
+        <%- include('partials/breadcrumb_2', {db:'clients', action:'Edit'}) %>
+        <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" placeholder="Client id" readonly value="<%= client._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_companyName" class="col-sm-2 col-form-label">companyName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_companyName" placeholder="公司名稱" required value="<%= client.companyName %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_uniBusNo" class="col-sm-2 col-form-label">uniBusNo</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_uniBusNo" placeholder="公司統一編號" required value="<%= client.uniBusNo %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_address" class="col-sm-2 col-form-label">address</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_address" placeholder="地址" required value="<%= client.address %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_city" class="col-sm-2 col-form-label">city</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="input_city" placeholder="城市" required value="<%= client.city %>" >
+            </div>
+            <label for="input_district" class="col-sm-2 col-form-label">district</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_district" placeholder="區" required value="<%= client.district %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_country" class="col-sm-2 col-form-label">country</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="input_country" placeholder="國家" required value="<%= client.country %>" >
+            </div>
+            <label for="input_postcode" class="col-sm-2 col-form-label">postcode</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_postcode"  placeholder="郵遞區號" required value="<%= client.postcode %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_contactPerson1" class="col-sm-2 col-form-label">contactPerson1</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_contactPerson1" placeholder="聯絡人1" required value="<%= client.contactPerson1 %>" >
+            </div>
+            <label for="input_contactPhone1" class="col-sm-2 col-form-label">contactPhone1</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="input_contactPhone1" placeholder="聯絡電話1" required value="<%= client.contactPhone1 %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_contactEmail1" class="col-sm-2 col-form-label">contactEmail1</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="input_contactEmail1" placeholder="聯絡人 Email1" required value="<%= client.contactEmail1 %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_contactPerson2" class="col-sm-2 col-form-label">contactPerson2</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="input_contactPerson2" placeholder="聯絡人2" value="<%= client.contactPerson2 %>" >
+            </div>
+            <label for="input_contactPhone2" class="col-sm-2 col-form-label">contactPhone1</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="input_contactPhone2" placeholder="聯絡電話2" value="<%= client.contactPhone2 %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_contactEmail2" class="col-sm-2 col-form-label">contactEmail2</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="input_contactEmail2" placeholder="聯絡人 Email2" value="<%= client.contactEmail2 %>" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_active" class="col-sm-2 col-form-label">active</label>
+            <div class="col-sm-10">
+                <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input radio_active" value="0" <%= client.active==0?'checked':'' %>>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">inactive</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input radio_active" value="1" <%= client.active==1?'checked':'' %>>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">active</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9"></div>
+            <div class="offset-sm-9 col-sm-3">
+                <button type="reset" class="btn btn-info btn-submit">Reset</button>
+                <button type="submit" class="btn btn-primary btn-reset" formaction="/clientsEditSubmit/<%= client._id %>">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>
+<script>
+    $('#input_id').on("change", function(event) {
+        $(this).attr('name','_id');
+    })
+    $('#input_companyName').on("change", function(event) {
+        $(this).attr('name','companyName');
+    })
+    $('#input_uniBusNo').on("change", function(event) {
+        $(this).attr('name','uniBusNo');
+    })
+    $('#input_address').on("change", function(event) {
+        $(this).attr('name','address');
+    })
+    $('#input_city').on("change", function(event) {
+        $(this).attr('name','city');
+    })
+    $('#input_district').on("change", function(event) {
+        $(this).attr('name','district');
+    })
+    $('#input_country').on("change", function(event) {
+        $(this).attr('name','country');
+    })
+    $('#input_postcode').on("change", function(event) {
+        $(this).attr('name','postcode');
+    })
+    $('#input_contactPerson1').on("change", function(event) {
+        $(this).attr('name','contactPerson1');
+    })
+    $('#input_contactPhone1').on("change", function(event) {
+        $(this).attr('name','contactPhone1');
+    })
+    $('#input_contactEmail1').on("change", function(event) {
+        $(this).attr('name','contactEmail1');
+    })
+    $('#input_contactPerson2').on("change", function(event) {
+        $(this).attr('name','contactPerson2');
+    })
+    $('#input_contactPhone2').on("change", function(event) {
+        $(this).attr('name','contactPhone2');
+    })
+    $('#input_contactEmail2').on("change", function(event) {
+        $(this).attr('name','contactEmail2');
+    })
+    $('.radio_active').on("change", function(event) {
+        $(this).attr('name','active');
+    })
+</script>
