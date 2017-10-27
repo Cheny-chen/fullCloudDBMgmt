@@ -3,16 +3,17 @@ var mongoose = require('../config/db');
 var Schema = mongoose.Schema;
 var UUID = mongoose.Types.UUID;
 var Long = mongoose.Schema.Types.Long;
+var ObjectId = Schema.Types.ObjectId;
 var log = 1;
 
-var time = new Date().toISOString();
+// var time = new Date().toISOString();
 // var time = Math.round(new Date().getTime() / 1000)
-var unix = new Date().getTime();
+var time = new Date().getTime();
 //===================================
 // 1. create a users schema
 //===================================
 var usersSchema = new Schema({
-    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(unix), ref: 'permissions' },
+    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(time), ref: 'permissions' },
     loginID:    	{ type: String, required: true, unique: true},
     clientID:   	{ type: String, required: false, ref: 'clients'},
     fullName:   	{ type: String, required: true},
@@ -66,7 +67,7 @@ var clientsSchema = new Schema({
 // 3. create a serialNumbers schema
 //===================================
 var serialNumbersSchema = new Schema({
-    _id:            { type: UUID, required: true, unique: true, default: uuidv4(unix) },
+    _id:            { type: UUID, required: true, unique: true, default: uuidv4(time) },
     snKey:          { type: String, required: true, unique: true},
     clientID:       { type: String, required: true, ref: 'clients'},
     gatewayList:    [String],
@@ -85,10 +86,10 @@ serialNumbersSchema.index({clientID: 1})
 // 4. create a identifies schema
 //===================================
 var identifiesSchema = new Schema({
-    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(unix) },
+    _id:        	{ type: UUID,   required: true, unique: true, default: uuidv4(time) },
     identifyName:   { type: String, required: true},
     snID:           { type: UUID,   required: true, ref: 'serialNumbers'},
-    idGroupID:      { type: UUID,   required: false, ref: 'identifyGroups'},
+    idGroupID:      { type: ObjectId,  required: false, ref: 'identifyGroups'},
     deviceList:     [String],
     enable:         { type: Number, required: false,
                       min:0,
@@ -101,7 +102,7 @@ var identifiesSchema = new Schema({
 // 5. create a identifyGroups schema
 //===================================
 var identifyGroupsSchema = new Schema({
-    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
+    _id:            { type: ObjectId,   required: true, unique: true, default: new mongoose.mongo.ObjectId(), ref: 'identifies' },
     groupName:      { type: String, required: true},
     snID:           { type: UUID,   required: true, ref: 'serialNumbers'},
     updateTime:     { type: Date,   required: false, default: time },
@@ -112,7 +113,7 @@ identifyGroupsSchema.index({snID:1})
 // 6. create a permissions schema
 //===================================
 var permissionsSchema = new Schema({
-    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(unix), ref: 'users' },
+    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(time), ref: 'users' },
     parentID:       { type: UUID,   required: false },
     permissName:    { type: String, required: false },
     snID:           { type: UUID,   required: false, ref: 'serialNumbers' },
@@ -129,7 +130,7 @@ permissionsSchema.index({parentID:1, snID:1})
 // 7. create a clouds schema
 //===================================
 var cloudsSchema = new Schema({
-    _id:            { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
+    _id:            { type: Number, required: true, unique: true, default: Math.round(time/1000), ref: 'devices' },
     cloudName:      { type: String, required: true, unique: true },
     mqttHost:       { type: String, required: true },
     mqttPort:       { type: Number, required: true },
@@ -146,11 +147,11 @@ var cloudsSchema = new Schema({
 var deviceInfoSchema = new Schema({
     _id:            { type: String, required: true, ref: 'devices' },
     fullModelID:    { type: String, required: true, ref: 'devices' },
-    static_function: [{
+    sfunctionList:  [{
         fullID:     { type: Number, required: false },
         value:      { type: String, required: false, default: "" }
     }],
-    dyname_function: [Number],
+    dfunctionList: [Number],
     isAuto:         { type: Number, required: false,
                       min:0,
                       max: 1,
@@ -170,7 +171,7 @@ var devicesSchema = new Schema({
     _id:            { type: String, required: true, unique: true },
     deviceName:     { type: String, required: false },
     gatewayID:      { type: String, required: false },
-    cloudID:        { type: UUID,   required: false, ref: 'clouds' },
+    cloudID:        { type: Number, required: false, ref: 'clouds' },
     firmwareID:     { type: String, required: false, ref: 'deviceInfo' },
     fullModelID:    { type: String, required: false, ref: 'deviceInfo' },
     functionList:   [{
@@ -178,7 +179,7 @@ var devicesSchema = new Schema({
         value:      { type: String, required: false, default: "" },
         updateTime: { type: Date,   required: false, default: time }
     }],
-    deGroupID:      { type: UUID,   required: false, ref: 'deviceGroups' },
+    deGroupID:      { type: ObjectId, required: false, ref: 'deviceGroups' },
     owner:          { type: UUID,   required: false, ref: 'permissions' },
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
@@ -188,7 +189,7 @@ devicesSchema.index({gatewayID:1, cloudID:1, firmwareID:1, fullModelID:1, deGrou
 // 10. create a deviceGroups schema
 //===================================
 var deviceGroupsSchema = new Schema({
-    _id:            { type: String, required: true, unique: true},
+    _id:            { type: ObjectId, required: true, unique: true, default: new mongoose.mongo.ObjectId(), ref: 'device'},
     groupName:      { type: String, required: true },
     snID:           { type: UUID,   required: true, ref: 'serialNumbers'},
     updateTime:     { type: Date,   required: false, default: time },
@@ -199,7 +200,7 @@ deviceGroupsSchema.index({snID:1})
 // 11. create a automations schema
 //===================================
 var automationsSchema = new Schema({
-    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
+    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     autoName:         { type: String, required: true },
     identifyID:       { type: UUID,   required: true, ref: 'identifies' },
     gatewayID:        { type: String, required: false, ref: 'devices' },
@@ -249,7 +250,7 @@ automationsSchema.index({idGroupID:1, gatewayID:1})
 // 12. create a groups schema
 //===================================
 var groupsSchema = new Schema({
-    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(unix) },
+    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(time) },
     groupName:        { type: String, required: true },
     identifyID:       { type: UUID,   required: true, ref: 'identifies' },
     action:           [{
@@ -272,22 +273,22 @@ var scenesSchema = new Schema({
     updateTime:     { type: Date,   required: false, default: time },
     createTime:     { type: Date,   required: false, default: time }
 });
-unix = 0;
+time = 0;
 // the schema is useless so far
 // we need to create a model using it
-var users = mongoose.model('users', usersSchema);
-var clients = mongoose.model('clients', clientsSchema);
-var serialNumbers = mongoose.model('serialNumbers', serialNumbersSchema);
-var identifies = mongoose.model('identifies', identifiesSchema);
-var identifyGroups = mongoose.model('identifyGroups', identifyGroupsSchema);
-var permissions = mongoose.model('permissions', permissionsSchema);
-var clouds = mongoose.model('clouds', cloudsSchema);
-var deviceInfo = mongoose.model('deviceInfo', deviceInfoSchema);
-var devices = mongoose.model('devices', devicesSchema);
-var deviceGroups = mongoose.model('deviceGroups', deviceGroupsSchema);
-var automations = mongoose.model('automations', automationsSchema);
-var groups = mongoose.model('groups', groupsSchema);
-var scenes = mongoose.model('scenes', scenesSchema);
+var users = mongoose.model('users', usersSchema, 'users');
+var clients = mongoose.model('clients', clientsSchema, 'clients');
+var serialNumbers = mongoose.model('serialNumbers', serialNumbersSchema, 'serialNumbers');
+var identifies = mongoose.model('identifies', identifiesSchema, 'identifies');
+var identifyGroups = mongoose.model('identifyGroups', identifyGroupsSchema, 'identifyGroups');
+var permissions = mongoose.model('permissions', permissionsSchema, 'permissions');
+var clouds = mongoose.model('clouds', cloudsSchema, 'clouds');
+var deviceInfo = mongoose.model('deviceInfo', deviceInfoSchema, 'deviceInfo');
+var devices = mongoose.model('devices', devicesSchema, 'devices');
+var deviceGroups = mongoose.model('deviceGroups', deviceGroupsSchema, 'deviceGroups');
+var automations = mongoose.model('automations', automationsSchema, 'automations');
+var groups = mongoose.model('groups', groupsSchema, 'groups');
+var scenes = mongoose.model('scenes', scenesSchema, 'scenes');
 
 // make this available to our users in our Node applications
 exports.users = users;

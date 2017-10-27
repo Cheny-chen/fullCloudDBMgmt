@@ -3,7 +3,7 @@
 <%- include('partials/header') %>
 <div class="container-fluid">
     <form action="" method="get">
-        <%- include('partials/breadcrumb_1', {db:'identifies', url:'identifiesAdd'}) %>
+        <%- include('partials/breadcrumb_1', {db:'identifies', url:''}) %>
         <table class="table table-responsive table-striped table-hover">
             <thead>
                 <tr>
@@ -42,9 +42,6 @@
                 <% }) %>
                 </tbody>
         </table>
-        <div class="contain-button pull-right">
-            <button type="submit" class="btn btn-success btn-add" formaction="/identifiesAdd">Add</button>
-        </div>
     </form>
 </div>
 <%- include('partials/footer') %>

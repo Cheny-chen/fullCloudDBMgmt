@@ -309,8 +309,8 @@ router.get('/serialNumbersDelete/:_id',function(req,res){
 //===================================
 // 4. identifies CRUD
 //===================================
-router.get('/identifiesAdd', function(req, res, next) {
-    res.render('identifiesAdd');
+router.get('/identifiesAdd/:_id', function(req, res, next) {
+    res.render('identifiesAdd', {snID: req.params._id});
 });
 router.post('/identifiesAddSubmit', function(req, res, next) {
     console.log(req.body);
@@ -621,19 +621,20 @@ router.get('/deviceInfoAdd', function(req, res, next) {
     res.render('deviceInfoAdd');
 });
 router.post('/deviceInfoAddSubmit', function(req, res, next) {
-    console.log(req.body);
+    var data = JSON.parse(req.body.data);
+    console.log(data);
 
-    // 插入数据
-    // deviceInfoModel.create(req.body, function(err,result){
-    //     if(err){
-    //         console.error(err);
-    //         // 说明有问题,跳转会添加用户的页面
-    //         res.redirect('back');
-    //     }else{
-    //         console.log(result);
-    //         res.redirect('/deviceInfo');
-    //     }
-    // });
+    //插入数据
+    deviceInfoModel.create(data, function(err,result){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            console.log(result);
+            res.redirect('/deviceInfo');
+        }
+    });
 });
 router.get('/deviceInfoEdit/:_id',function(req,res){
     // 条件
@@ -692,13 +693,21 @@ router.get('/deviceInfoDelete/:_id',function(req,res){
 // 9. devices CRUD
 //===================================
 router.get('/devicesAdd', function(req, res, next) {
-    res.render('devicesAdd');
+    res.render('devicesAdd', {data:''});
+});
+router.get('/devicesMatch/:_id&:fullModelID', function(req, res, next) {
+    var data = {
+            _id: req.params._id,
+            fullModelID: req.params.fullModelID
+        }
+    res.render('devicesAdd', {data:data});
 });
 router.post('/devicesAddSubmit', function(req, res, next) {
-    console.log(req.body);
+    var data = JSON.parse(req.body.data)
+    console.log(data);
 
     // 插入数据
-    devicesModel.create(req.body, function(err,result){
+    devicesModel.create(data, function(err,result){
         if(err){
             console.error(err);
             // 说明有问题,跳转会添加用户的页面

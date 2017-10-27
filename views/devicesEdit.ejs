@@ -2,7 +2,7 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container">
-    <form method="post" class="formOutline">
+    <form id="thisForm" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'devices', action:'Edit'}) %>
         <div class="form-group row">
             <label for="input_id" class="col-sm-2 col-form-label">_id</label>
@@ -41,6 +41,20 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="input_deGroupID" class="col-sm-2 col-form-label">functionList</label>
+            <% for(i=0; i<12; i++) { %>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control input_fullID" placeholder="Full ID" value="<%= device.functionList[i]?device.functionList[i].fullID:'' %>">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control input_value" placeholder="value or status" value="<%= device.functionList[i]?device.functionList[i].value:'' %>">
+                </div>
+                <% if((i+1)%3==0) { %>
+                    <label for="input_deGroupID" class="col-sm-2 col-form-label"></label>
+                <% }
+            }%>
+        </div>
+        <div class="form-group row">
             <label for="input_owner" class="col-sm-2 col-form-label">owner</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="input_owner" placeholder="owner" value="<%= device.owner %>">
@@ -62,7 +76,7 @@
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
                 <button type="reset" class="btn btn-info btn-reset">Reset</button>
-                <button type="submit" class="btn btn-primary btn-submit" formaction="/devicesEditSubmit/<%= device._id %>">Submit</button>
+                <button type="submit" class="btn btn-primary btn-submit">Submit</button>
             </div>
         </div>
     </form>
@@ -84,7 +98,22 @@
     $('#input_fullModelID').on("change", function(event) {
         $(this).attr('name','fullModelID');
     })
+    $('.input_fullID').on('change', function(event){
+        $(this).attr('name', 'functionList[][fullID]')
+    })
+    $('.input_value').on('change', function(event){
+        $(this).attr('name', 'functionList[][value]')
+    })
     $('#input_owner').on("change", function(event) {
         $(this).attr('name','owner');
+    })
+    $('#thisForm').on('submit', function(event){
+        event.preventDefault();
+        var obj = $(this).serializeJSON();
+        var str = JSON.stringify(obj);
+        console.log(str);
+        $.post('//devicesEditSubmit/<%= device._id %>', {data: str}, function(result) {
+            // console.log("group: %j ", result);
+        });
     })
 </script>

@@ -25,15 +25,18 @@
                         <th scope="row"><%= cindex+1 %></th>
                         <td><%= deviceInfo._id %></td>
                         <td><%= deviceInfo.fullModelID %></td>
-                        <td><%= deviceInfo.sfunctionList %></td>
+                        <td><%  deviceInfo.sfunctionList.forEach((slist) => { %>
+                                    <Span><%= slist.fullID %>: <%= slist.value %> | </Span>
+                            <%}) %></td>
                         <td><%= deviceInfo.dfunctionList %></td>
                         <td><%= deviceInfo.isAuto %></td>
                         <td><%= deviceInfo.isGroup %></td>
                         <td><%= momentTimezone(deviceInfo.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(deviceInfo.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
-                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/deviceInfoDelete/<%= deviceInfo._id %>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/deviceInfoEdit/<%= deviceInfo._id %>">Edit</button>
+                            <button type="submit" class="btn btn-dark btn-add" formaction="/devicesMatch/<%= deviceInfo._id %>&<%= deviceInfo.fullModelID %>">Device</button>
                         </td>
                     </tr>
                 <% }) %>

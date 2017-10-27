@@ -2,7 +2,7 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container">
-    <form method="post" class="formOutline">
+    <form id="thisForm" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'devices', action:'Add'}) %>
         <div class="form-group row">
             <label for="input_id" class="col-sm-2 col-form-label">_id</label>
@@ -13,7 +13,7 @@
         <div class="form-group row">
             <label for="input_deviceName" class="col-sm-2 col-form-label">deviceName</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_deviceName" name="deviceName" placeholder="device Name">
+                <input type="text" class="form-control" id="input_deviceName" name="deviceName" placeholder="使用者自定裝置名稱">
             </div>
         </div>
         <div class="form-group row">
@@ -31,34 +31,71 @@
         <div class="form-group row">
             <label for="input_firmwareID" class="col-sm-2 col-form-label">firmwareID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_firmwareID" name="firmwareID" placeholder="firmware ID">
+                <input type="text" class="form-control" id="input_firmwareID" name="firmwareID" placeholder="廠商 firmware 編號" value="<%= data?data._id:'' %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_fullModelID" class="col-sm-2 col-form-label">fullModelID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_fullModelID" name="fullModelID" placeholder="full Model ID">
+                <input type="text" class="form-control" id="input_fullModelID" name="fullModelID" placeholder="富欣自定裝置型號" value="<%= data?data.fullModelID:'' %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_deGroupID" class="col-sm-2 col-form-label">deGroupID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_deGroupID" name="deGroupID" placeholder="device Group ID">
+                <input type="text" class="form-control" id="input_deGroupID" placeholder="device Group ID">
             </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_deGroupID" class="col-sm-2 col-form-label">functionList</label>
+            <% for(i=0; i<12; i++) { %>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control input_fullID" placeholder="Full ID">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control input_value" placeholder="value">
+                </div>
+                <% if((i+1)%3==0) { %>
+                    <label for="input_deGroupID" class="col-sm-2 col-form-label"></label>
+                <% }
+            }%>
         </div>
         <div class="form-group row">
             <label for="input_owner" class="col-sm-2 col-form-label">owner</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_owner" name="owner" placeholder="owner">
+                <input type="text" class="form-control" id="input_owner" placeholder="最後掃 gateway 的人，permission ID">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
                 <button type="reset" class="btn btn-info btn-reset">Reset</button>
-                <button type="submit" class="btn btn-primary btn-submit" formaction="/devicesAddSubmit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-submit">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $('#input_deGroupID').on('change', function(event){
+        $(this).attr('name', 'deGroupID')
+    })
+    $('.input_fullID').on('change', function(event){
+        $(this).attr('name', 'functionList[][fullID]')
+    })
+    $('.input_value').on('change', function(event){
+        $(this).attr('name', 'functionList[][value]')
+    })
+    $('#input_owner').on('change', function(event){
+        $(this).attr('name', 'owner')
+    })
+    $('#thisForm').on('submit', function(event){
+        event.preventDefault();
+        var obj = $(this).serializeJSON();
+        var str = JSON.stringify(obj);
+        console.log(str);
+        $.post('/devicesAddSubmit', {data: str}, function(result) {
+            // console.log("group: %j ", result);
+        });
+    })
+</script>

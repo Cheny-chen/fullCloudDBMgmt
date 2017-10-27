@@ -10,7 +10,7 @@
                     <th>#</th>
                     <th>_id</th>
                     <th>groupName</th>
-                    <th>permissID</th>
+                    <th>identifyID</th>
                     <th>deviceID</th>
                     <th>function</th>
                     <th>updateTime<br />
@@ -24,7 +24,7 @@
                         <th scope="row"><%= cindex+1 %></th>
                         <td><%= group._id %></td>
                         <td><%= group.groupName %></td>
-                        <td><%= group.permissID %></td>
+                        <td><%= group.identifyID %></td>
                         <td><%= group.action.deviceID %></td>
                         <td><%= group.action.functionList %></td>
                         <td><%= momentTimezone(group.updateTime).tz('Asia/Taipei').format('lll') %><br />
