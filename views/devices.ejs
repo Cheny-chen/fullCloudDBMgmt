@@ -10,10 +10,11 @@
                     <th>#</th>
                     <th>_id</th>
                     <th>deviceName</th>
-                    <th>gatewayID</th>
-                    <th>cloudID</th>
-                    <th>firmwareID</th>
-                    <th>fullModelID</th>
+                    <th>gatewayID<br />
+                        cloudID</th>
+                    <th>firmwareID<br />
+                        fullModelID</th>
+                    <th>functionList</th>
                     <th>owner</th>
                     <th>updateTime<br />
                         createTime</th>
@@ -26,10 +27,14 @@
                         <th scope="row"><%= cindex+1 %></th>
                         <td><%= device._id %></td>
                         <td><%= device.deviceName %></td>
-                        <td><%= device.gatewayID %></td>
-                        <td><%= device.cloudID %></td>
-                        <td><%= device.firmwareID %></td>
-                        <td><%= device.fullModelID %></td>
+                        <td><%= device.gatewayID %><br />
+                            <%= device.cloudID %></td>
+                        <td><%= device.firmwareID %><br />
+                            <%= device.fullModelID %></td>
+                        <td><%  device.functionList.forEach((flist, index)=> { %>
+                                <%= flist.fullID +' : '+ flist.value+' | ' %>
+                                <% if((index+1)%3==0) { %><br /><% }
+                                })%></td>
                         <td><%= device.owner %></td>
                         <td><%= momentTimezone(device.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(device.createTime).tz('Asia/Taipei').format('lll') %></td>

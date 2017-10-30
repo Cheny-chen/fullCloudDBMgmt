@@ -22,7 +22,7 @@
                 var textList = ['顯示圖示', '智慧連動Type', 'Slev', '觸發時間', '推播', 'Level1 情境Type', '裝置協議', '邏輯', '韌體版本', '韌體型號', '預設顯示名稱', 'RF ID']
                 for(i=0; i<12; i++) { %>
                     <div class="col-sm-1">
-                        <input type="text" class="form-control" name="sfunctionList[][fullID]" value="<%= numList[i] %>" readonly>
+                        <input type="number" class="form-control" name="sfunctionList[][fullID]" value="<%= numList[i] %>" readonly>
                     </div>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="sfunctionList[][value]" placeholder="<%= textList[i] %>">
@@ -36,7 +36,7 @@
             <label for="input_itemList" class="col-sm-2 col-form-label">dfunctionList</label>
             <% for(i=0; i<20; i++) { %>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control input_itemList" placeholder="full ID">
+                    <input type="number" class="form-control input_itemList" placeholder="full ID">
                 </div>
                 <% if((i+1)%5 == 0) { %>
                     <label for="input_itemList" class="col-sm-2 col-form-label"></label>
@@ -93,7 +93,7 @@
         var str = JSON.stringify(obj);
         console.log(str);
         $.post('/deviceInfoAddSubmit', {data: str}, function(result) {
-            // console.log("group: %j ", result);
+            location.href = "/deviceInfo";
         });
     })
 </script>

@@ -14,7 +14,7 @@ var automationsModel = require('../models/schemaModels').automations;
 var groupsModel = require('../models/schemaModels').groups;
 var scenesModel = require('../models/schemaModels').scenes;
 /* GET UTC */
-var time = new Date().toISOString();
+var time = new Date().getTime();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Full Cloud Database Management' });
@@ -560,7 +560,7 @@ router.get('/cloudsEdit/:_id',function(req,res){
         }
     })
 })
-router.post('/cloudsEditSubmit',function(req,res){
+router.post('/cloudsEditSubmit/:_id',function(req,res){
     var con = {
         _id : req.params._id
     },
@@ -658,7 +658,7 @@ router.post('/deviceInfoEditSubmit/:_id',function(req,res){
     var con = {
             _id : req.params._id
         },
-        newData = req.body;
+        newData = JSON.parse(req.body.data);
 
     newData.updateTime = time;
     deviceInfoModel.update(con, newData, function(err, data){
@@ -668,7 +668,7 @@ router.post('/deviceInfoEditSubmit/:_id',function(req,res){
             res.redirect('back');
         }else{
             // 跳转首页
-            res.redirect('deviceInfo');
+            res.redirect('/deviceInfo');
         }
     })
 })
@@ -740,8 +740,8 @@ router.post('/devicesEditSubmit/:_id',function(req,res){
     var con = {
             _id : req.params._id
         },
-        newData = req.body;
-
+        newData = JSON.parse(req.body.data);
+    console.log('===============> '+ typeof newData)
     newData.updateTime = time;
     devicesModel.update(con, newData, function(err, data){
         if(err){

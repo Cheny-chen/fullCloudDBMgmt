@@ -50,7 +50,7 @@
             <label for="input_deGroupID" class="col-sm-2 col-form-label">functionList</label>
             <% for(i=0; i<12; i++) { %>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control input_fullID" placeholder="Full ID">
+                    <input type="number" class="form-control input_fullID" placeholder="Full ID">
                 </div>
                 <div class="col-sm-2">
                     <input type="text" class="form-control input_value" placeholder="value">
@@ -63,7 +63,7 @@
         <div class="form-group row">
             <label for="input_owner" class="col-sm-2 col-form-label">owner</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_owner" placeholder="最後掃 gateway 的人，permission ID">
+                <input type="text" class="form-control" id="input_owner" placeholder="此攔位只限gateway，最後掃 gateway 的人，permission ID">
             </div>
         </div>
         <div class="form-group row">
@@ -95,7 +95,7 @@
         var str = JSON.stringify(obj);
         console.log(str);
         $.post('/devicesAddSubmit', {data: str}, function(result) {
-            // console.log("group: %j ", result);
+            location.href = "/devices";
         });
     })
 </script>

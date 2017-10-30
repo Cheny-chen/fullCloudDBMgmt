@@ -2,7 +2,7 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container">
-    <form method="post" enctype="multipart/form-data" class="formOutline">
+    <form id="thisForm" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'deviceInfo', action:'Edit'}) %>
         <div class="form-group row">
             <label for="input_id" class="col-sm-2 col-form-label">_id</label>
@@ -21,10 +21,10 @@
             <%  var textList = ['顯示圖示', '智慧連動Type', 'Slev', '觸發時間', '推播', 'Level1 情境Type', '裝置協議', '邏輯', '韌體版本', '韌體型號', '預設顯示名稱', 'RF ID']
                 deviceInfo.sfunctionList.forEach((slist, i)=>{ %>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" value="<%= slist.fullID %>" readonly>
+                    <input type="number" class="form-control input_fullID" name="sfunctionList[][fullID]" readonly value="<%= slist.fullID %>">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" placeholder="<%= textList[i] %>" value="<%= slist.value %>">
+                    <input type="text" class="form-control input_value" name="sfunctionList[][value]" placeholder="<%= textList[i] %>" value="<%= slist.value %>">
                 </div>
                 <% if((i+1)%3==0) { %>
                     <label for="input_fullID" class="col-sm-2 col-form-label"></label>
@@ -35,7 +35,7 @@
             <label for="input_itemList" class="col-sm-2 col-form-label">dfunctionList</label>
             <% for(i=0; i<20; i++) { %>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control input_itemList" placeholder="full ID">
+                    <input type="Number" class="form-control input_itemList" placeholder="full ID" name="<%= deviceInfo.dfunctionList[i]?'dfunctionList[]':'' %>" value="<%= deviceInfo.dfunctionList[i]?deviceInfo.dfunctionList[i]:'' %>">
                 </div>
                 <% if((i+1)%5 == 0) { %>
                     <label for="input_itemList" class="col-sm-2 col-form-label"></label>
@@ -46,12 +46,12 @@
             <label for="input_isAuto" class="col-sm-2 col-form-label">isAuto</label>
             <div class="col-sm-20">
                 <label class="custom-control custom-radio">
-                  <input id="radioStacked1" name="isAuto" type="radio" class="custom-control-input" value="0">
+                  <input type="radio" class="custom-control-input radio_isAuto" value="0" <%= deviceInfo.isAuto==0?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">no</span>
                 </label>
                 <label class="custom-control custom-radio">
-                  <input id="radioStacked2" name="isAuto" type="radio" class="custom-control-input" value="1" checked>
+                  <input type="radio" class="custom-control-input radio_isAuto" value="1" <%= deviceInfo.isAuto==1?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">yes</span>
                 </label>
@@ -61,12 +61,12 @@
             <label for="input_isGroup" class="col-sm-2 col-form-label">isGroup</label>
             <div class="col-sm-20">
                 <label class="custom-control custom-radio">
-                  <input id="radioStacked1" name="isGroup" type="radio" class="custom-control-input" value="0">
+                  <input type="radio" class="custom-control-input radio_isGroup" value="0" <%= deviceInfo.isGroup==0?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">no</span>
                 </label>
                 <label class="custom-control custom-radio">
-                  <input id="radioStacked2" name="isGroup" type="radio" class="custom-control-input" value="1" checked>
+                  <input type="radio" class="custom-control-input radio_isGroup" value="1" <%= deviceInfo.isGroup==1?'checked':'' %>>
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">yes</span>
                 </label>
@@ -76,9 +76,35 @@
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
                 <button type="reset" class="btn btn-info btn-reset">Reset</button>
-                <button type="submit" class="btn btn-primary btn-submit" formaction="/deviceInfoAddSubmit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-submit">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $("#input_id").on("change", function(event) {
+        $(this).attr("name","_id")
+    })
+    $("#input_fullModelID").on("change", function(event) {
+        $(this).attr("name","fullModelID")
+    })
+    $(".input_itemList").on("change", function(event) {
+        $(this).attr("name","dfunctionList[]")
+    })
+    $(".radio_isAuto").on("change", function(event) {
+        $(this).attr("name","isAuto")
+    })
+    $(".radio_isGroup").on("change", function(event) {
+        $(this).attr("name","isGroup")
+    })
+    $("#thisForm").on("submit", function(event) {
+        event.preventDefault();
+        var obj = $(this).serializeJSON();
+        var str = JSON.stringify(obj);
+        console.log(str);
+        $.post('/deviceInfoEditSubmit/<%= deviceInfo._id %>', {data: str}, function(result) {
+            location.href = "/deviceInfo";
+        });
+    })
+</script>
