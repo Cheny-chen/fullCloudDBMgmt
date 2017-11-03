@@ -32,7 +32,7 @@
             <label for="input_deviceList" class="col-sm-2 col-form-label">deviceList</label>
             <% for(i=0; i<12; i++) { %>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control deviceList" placeholder="device ID" value="<%= identify.deviceList[i]?identify.deviceList[i]:'' %>">
+                    <input type="text" class="form-control deviceList" placeholder="device ID" name="deviceList" value="<%= identify.deviceList[i]?identify.deviceList[i]:'' %>">
                 </div>
                 <% if((i+1)%3 == 0) { %>
                     <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
@@ -74,10 +74,10 @@
     $("#input_idGroupID").on("change", function(event) {
         $(this).attr("name","idGroupID")
     })
-    $(".deviceList").on("change", function(event) {
-        $(this).attr("name","deviceList")
-    })
+    // $(".deviceList").on("change", function(event) {
+    //     $(this).attr("name","deviceList")
+    // })
     $(".radio_enable").on("change", function(event) {
         $(this).attr("name","enable")
-    })    
+    })
 </script>

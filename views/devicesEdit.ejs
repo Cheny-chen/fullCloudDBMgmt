@@ -43,11 +43,11 @@
         <div class="form-group row">
             <label for="input_deGroupID" class="col-sm-2 col-form-label">functionList</label>
             <% for(i=0; i<12; i++) { %>
-                <div class="col-sm-1">
-                    <input type="number" class="form-control input_fullID" placeholder="Full ID" name="<%= device.functionList[i]?'functionList[][fullID]':'' %>" value="<%= device.functionList[i]?device.functionList[i].fullID:'' %>">
-                </div>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control input_value" placeholder="value or status" name="<%= device.functionList[i]?'functionList[][value]':'' %>" value="<%= device.functionList[i]?device.functionList[i].value:'' %>">
+                    <input type="number" class="form-control input_fullID" placeholder="Full ID" value="<%= device.functionList[i]?device.functionList[i].fullID:'' %>">
+                </div>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control input_value" placeholder="value or status" value="<%= device.functionList[i]?device.functionList[i].value:'' %>">
                 </div>
                 <% if((i+1)%3==0) { %>
                     <label for="input_deGroupID" class="col-sm-2 col-form-label"></label>
@@ -98,12 +98,12 @@
     $('#input_fullModelID').on("change", function(event) {
         $(this).attr('name','fullModelID');
     })
-    // $('.input_fullID').on('change', function(event){
-    //     $(this).attr('name', 'functionList[][fullID]')
-    // })
-    // $('.input_value').on('change', function(event){
-    //     $(this).attr('name', 'functionList[][value]')
-    // })
+    $('.input_fullID').on('change', function(event){
+        $(this).attr('name', 'functionList[][fullID]')
+    })
+    $('.input_value').on('change', function(event){
+        $(this).attr('name', 'functionList[][value]')
+    })
     $('#input_owner').on("change", function(event) {
         $(this).attr('name','owner');
     })

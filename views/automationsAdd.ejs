@@ -2,75 +2,88 @@
 <!-- 引入 Nevigator 在 header  -->
 <%- include('partials/header') %>
 <div class="container">
-    <form method="post" enctype="multipart/form-data" class="formOutline">
+    <form id="thisForm" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'automations', action:'Add'}) %>
         <div class="form-group row">
             <label for="input_autoName" class="col-sm-2 col-form-label">autoName</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_autoName" placeholder="auto Name">
+                <input type="text" class="form-control" id="input_autoName" name="autoName" placeholder="auto Name">
             </div>
         </div>
         <div class="form-group row">
-            <label for="input_permissID" class="col-sm-2 col-form-label">permissID</label>
+            <label for="input_permissID" class="col-sm-2 col-form-label">identifyID</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_identifyID" placeholder="identify ID">
+                <input type="text" class="form-control" id="input_identifyID" name="identifyID" placeholder="identify ID">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_timeZone" class="col-sm-2 col-form-label">timeZone</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_timeZone" placeholder="timeZone">
+                <input type="text" class="form-control" id="input_timeZone" name="timeZone" placeholder="timeZone" value="* * * * *">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_trigger" class="col-sm-2 col-form-label">trigger</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_trigger" placeholder="trigger device ID">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="input_trigger" name="trigger" placeholder="trigger device ID" required>
             </div>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_trigger" placeholder="full ID">
+                <input type="number" class="form-control" id="input_trigger" name="triggerFunction[fullID]" placeholder="full ID">
             </div>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_trigger" placeholder="value">
+                <input type="text" class="form-control" id="input_trigger" name="triggerFunction[value]" placeholder="value">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="input_itemList" class="col-sm-2 col-form-label">action_deviceList</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+        <hr />
+        <% for(x=0; x<3; x++) { %>
+            <div class="form-group row">
+                <label for="input_itemList" class="col-sm-2 col-form-label">action_deviceList</label>
+                <% for(i=0; i<4; i++) { %>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control input_deviceID" placeholder="device ID" name="action[<%= x %>][deviceList][][deviceID]">
+                    </div>
+                    <div class="col-sm-1">
+                        <input type="number" class="form-control input_level" placeholder="L" maxlength="1" size="1" value="0" name="action[<%= x %>][deviceList][][level]">
+                    </div>
+                    <% if((i+1)%2==0) { %><label for="input_itemList" class="col-sm-2 col-form-label"></label><%  }
+                }%>
             </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            <div class="form-group row">
+                <label for="input_itemList" class="col-sm-2 col-form-label">action_functionList</label>
+                <div class="col-sm-2">
+                    <input type="number" class="form-control input_fullID" placeholder="full ID" name="action[<%= x %>][functionList][][fullID]">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control input_value" placeholder="value" name="action[<%= x %>][functionList][][value]">
+                </div> |
+                <div class="col-sm-2">
+                    <input type="number" class="form-control input_fullID" placeholder="full ID" name="action[<%= x %>][functionList][][fullID]">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control input_value" placeholder="value"  name="action[<%= x %>][functionList][][value]">
+                </div>
             </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
+            <div class="form-group row">
+                <label for="input_itemList" class="col-sm-2 col-form-label">action_runAfter</label>
+                <div class="col-sm-3">
+                    <label class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input radio_runafterEnable" value="0" checked name="action[<%= x %>][RunAfter][enable]">
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-description">disable</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input radio_runafterEnable" value="1" name="action[<%= x %>][RunAfter][enable]" >
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-description">enable</span>
+                    </label>
+                </div>
+                <label for="input_delay" class="col-sm-1 col-form-label">delay</label>
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" id="input_delay" placeholder="delay seconds" name="action[<%= x %>][RunAfter][delay]" >
+                </div>
             </div>
-            <label for="input_itemList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="input_itemList" placeholder="device ID">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="input_itemList" class="col-sm-2 col-form-label">action_functionList</label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="value">
-            </div> |
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="input_itemList" placeholder="value">
-            </div>
-        </div>
+            <hr />
+        <% }%>
         <div class="form-group row">
             <label for="input_push" class="col-sm-2 col-form-label">sceneID</label>
             <div class="col-sm-10">
@@ -94,24 +107,6 @@
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">Sleep</span>
                 </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="input_itemList" class="col-sm-2 col-form-label">action_runAfter</label>
-            <div class="col-sm-3">
-                <label class="custom-control custom-radio">
-                  <input name="enableRunAfter" type="radio" class="custom-control-input" value="0" checked>
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">disable</span>
-                </label>
-                <label class="custom-control custom-radio">
-                  <input name="enableRunAfter" type="radio" class="custom-control-input" value="1">
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">enable</span>
-                </label>
-            </div>
-            <div class="col-sm-2">
-                <input type="number" class="form-control" id="input_itemList" placeholder="delay seconds">
             </div>
         </div>
         <div class="form-group row">
@@ -148,9 +143,34 @@
             <div class="col-sm-9"></div>
             <div class="offset-sm-9 col-sm-3">
                 <button type="reset" class="btn btn-info btn-submit">Reset</button>
-                <button type="submit" class="btn btn-primary btn-reset" formaction="/automationsAddSubmit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-reset">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    // $('.input_deviceID').off('change', function(event){
+    //     $(this).removeAttr('name')
+    //     var a = $(this).parent().next().find('.input_level').attr('name', 'action[][deviceList][][value]')
+    //     console.log('===========> '+JSON.stringify(a))
+    // })
+    // $('.input_level').off('change', function(event){
+    //     $(this).removeAttr('name')
+    // })
+    // $('.input_fullID').off('change', function(event){
+    //     $(this).removeAttr('name')
+    // })
+    // $('.input_value').off('change', function(event){
+    //     $(this).removeAttr('name')
+    // })
+    $('#thisForm').on('submit', function(event){
+        event.preventDefault();
+        var obj = $(this).serializeJSON({useIntKeysAsArrayIndex: true});
+        var str = JSON.stringify(obj);
+        console.log(str);
+        $.post('/automationsAddSubmit', {data: str}, function(result) {
+            location.href = "/automations";
+        });
+    })
+</script>

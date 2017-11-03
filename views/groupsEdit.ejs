@@ -5,58 +5,39 @@
     <form method="post" class="formOutline">
         <%- include('partials/breadcrumb_2', {db:'groups', action:'Edit'}) %>
         <div class="form-group row">
+            <label for="input_id" class="col-sm-2 col-form-label">_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_id" placeholder="group ID" value="<%= group._id %>">
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="input_groupName" class="col-sm-2 col-form-label">groupName</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="input_groupName" placeholder="group Name" value="<%= group.groupName %>">
             </div>
         </div>
         <div class="form-group row">
-            <label for="input_identifyID" class="col-sm-2 col-form-label">permission ID</label>
+            <label for="input_identifyID" class="col-sm-2 col-form-label">identify ID</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="input_identifyID" placeholder="identify ID" value="<%= group.identifyID %>">
             </div>
         </div>
         <div class="form-group row">
             <label for="input_deviceList" class="col-sm-2 col-form-label">action</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="device ID" value="<%= group.action[0].deviceID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="full ID" value="<%= group.action[0].function[0].fullID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="value" value="<%= group.action[0].function[0].value %>">
-            </div>
-            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="device ID" value="<%= group.action[1].deviceID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="full ID" value="<%= group.action[1].function[0].fullID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="value" value="<%= group.action[1].function[0].value %>">
-            </div>
-            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="device ID" value="<%= group.action[2].deviceID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="full ID" value="<%= group.action[2].function[0].fullID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="value" value="<%= group.action[2].function[0].value %>">
-            </div>
-            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="device ID" value="<%= group.action[3].deviceID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="full ID" value="<%= group.action[3].function[0].fullID %>">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="value" value="<%= group.action[3].function[0].value %>">
-            </div>
+            <% for(x=0; x<4; x++) { %>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="device ID" value="<%= group.action[x]?group.action[x].deviceID:'' %>">
+                </div>
+                <% for(i=0; i<2; i++) { %>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="full ID" value="<%= group.action[x] %>">
+                    </div>
+                    <div class="col-sm-1">
+                        <input type="text" class="form-control" placeholder="value" value="<%= group.action[x] %>">
+                    </div>
+                <% }%>
+                <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
+            <% }%>
         </div>
         <div class="form-group row">
             <div class="col-sm-9"></div>
@@ -68,3 +49,29 @@
     </form>
 </div>
 <%- include('partials/footer') %>
+<script>
+    $('#input_groupName').on('change', function(event){
+        $(this).attr('name', 'groupName')
+    })
+    $('#input_identifyID').on('change', function(event){
+        $(this).attr('name', 'identifyID')
+    })
+    $('.input_deviceID').on('change', function(event){
+        $(this).attr('name', 'action[][deviceID]')
+    })
+    $('.input_fullID').on('change', function(event){
+        $(this).attr('name', 'action[][functionList][][fullID]')
+    })
+    $('.input_value').on('change', function(event){
+        $(this).attr('name', 'action[][functionList][][value]')
+    })
+    $('#thisForm').on('submit', function(event){
+        event.preventDefault();
+        var obj = $(this).serializeJSON();
+        var str = JSON.stringify(obj);
+        console.log(str);
+        $.post('/groupsAddSubmit/<% group._id %>', {data: str}, function(result) {
+            location.href = "/groups";
+        });
+    })
+</script>

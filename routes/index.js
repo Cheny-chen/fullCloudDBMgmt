@@ -13,6 +13,7 @@ var deviceGroupsModel = require('../models/schemaModels').deviceGroups;
 var automationsModel = require('../models/schemaModels').automations;
 var groupsModel = require('../models/schemaModels').groups;
 var scenesModel = require('../models/schemaModels').scenes;
+var uuidv4 = require('uuid/v4');
 /* GET UTC */
 var time = new Date().getTime();
 /* GET home page. */
@@ -69,22 +70,26 @@ router.get('/usersEdit/:_id',function(req,res){
     })
 })
 router.post('/usersEditSubmit/:_id',function(req,res){
-    var con = {
-        _id : req.params._id
-    }
-    newData = req.body
-    console.log(JSON.stringify(newData))
-    newData.updateTime = time
-    usersModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/users');
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/users')
+    } else {
+        var con = {
+            _id : req.params._id
         }
-    })
+        newData = req.body
+
+        newData.updateTime = time
+        usersModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/users');
+            }
+        })
+    }
 })
 router.get('/usersDelete/:_id',function(req,res){
     var con = {
@@ -180,22 +185,26 @@ router.get('/clientsEdit/:_id',function(req,res){
     })
 })
 router.post('/clientsEditSubmit/:_id',function(req,res){
-    var con = {
-            _id : req.params._id
-        },
-        newData = req.body;
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/clients')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time;
-    clientsModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/clients');
-        }
-    })
+        newData.updateTime = time;
+        clientsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/clients');
+            }
+        })
+    }
 })
 router.get('/clientsDelete/:_id',function(req,res){
     // 条件
@@ -251,23 +260,26 @@ router.get('/serialNumbersEdit/:_id',function(req,res){
     })
 })
 router.post('/serialNumbersEditSubmit/:_id',function(req,res){
-    var con = {
-            _id : req.params._id
-        },
-        newData = req.body;
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/serialNumbers')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time;
-    console.log(JSON.stringify(newData))
-    serialNumbersModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/serialNumbers');
-        }
-    })
+        newData.updateTime = time;
+        serialNumbersModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/serialNumbers');
+            }
+        })
+    }
 })
 router.get('/serialNumbersOff/:_id',function(req,res){
     // 条件
@@ -313,8 +325,11 @@ router.get('/identifiesAdd/:_id', function(req, res, next) {
     res.render('identifiesAdd', {snID: req.params._id});
 });
 router.post('/identifiesAddSubmit', function(req, res, next) {
-    console.log(req.body);
+    var _id = uuidv4(time),
+        newData = req.body
 
+    newData._id = _id
+    console.log(_id);
     // 插入数据
     identifiesModel.create(req.body, function(err,result){
         if(err){
@@ -344,22 +359,34 @@ router.get('/identifiesEdit/:_id',function(req,res){
     })
 })
 router.post('/identifiesEditSubmit/:_id',function(req,res){
-    var con = {
-            _id : req.params._id
-        },
-        newData = req.body;
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/identifies')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time;
-    identifiesModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/identifies');
-        }
-    })
+        for(i in newData.deviceList) {
+            if(newData.deviceList[i]=='') {
+                newData.deviceList.splice(i,newData.deviceList.length-i)
+                console.log(newData.deviceList)
+                break
+            }
+        };
+        console.log(newData.deviceList)
+        newData.updateTime = time;
+        identifiesModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/identifies');
+            }
+        })
+    }
 })
 router.get('/identifiesDelete/:_id',function(req,res){
     console.log(req.params._id);
@@ -416,22 +443,26 @@ router.get('/identifyGroupsEdit/:_id',function(req,res){
     })
 })
 router.post('/identifyGroupsEditSubmit/:_id',function(req,res){
-    var con = {
-        _id : req.params._id
-    },
-    newData = req.body;
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/identifyGroups')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time;
-    identifyGroupsModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/identifyGroups');
-        }
-    })
+        newData.updateTime = time;
+        identifyGroupsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/identifyGroups');
+            }
+        })
+    }
 })
 router.get('/identifyGroupsDelete/:_id',function(req,res){
     // 条件
@@ -474,8 +505,8 @@ router.post('/permissionsAddSubmit', function(req, res, next) {
 });
 router.get('/permissionsEdit/:_id',function(req,res){
     var con = {
-        _id : req.params._id
-    }
+            _id : req.params._id
+        }
     permissionsModel.findOne(con, function(err, data){
         if(err){
             console.error(err);
@@ -489,23 +520,26 @@ router.get('/permissionsEdit/:_id',function(req,res){
     })
 })
 router.post('/permissionsEditSubmit/:_id',function(req,res){
-    var con = {
-        _id : req.params._id
-    },
-    newData = req.body;
-    active : 0,
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/permissions')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time
-    permissionsModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/permissions');
-        }
-    })
+        newData.updateTime = time
+        permissionsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/permissions');
+            }
+        })
+    }
 })
 router.get('/permissionsDelete/:_id',function(req,res){
     // 条件
@@ -561,22 +595,27 @@ router.get('/cloudsEdit/:_id',function(req,res){
     })
 })
 router.post('/cloudsEditSubmit/:_id',function(req,res){
-    var con = {
-        _id : req.params._id
-    },
-    newData = req.body;
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/clouds');
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time;
-    cloudsModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/clouds');
-        }
-    })
+        newData.updateTime = time;
+        cloudsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/clouds');
+            }
+        })
+    }
+
 })
 router.get('/cloudsDelete/:_id',function(req,res){
     // 条件
@@ -655,22 +694,26 @@ router.get('/deviceInfoEdit/:_id',function(req,res){
 })
 router.post('/deviceInfoEditSubmit/:_id',function(req,res){
     // 条件
-    var con = {
-            _id : req.params._id
-        },
-        newData = JSON.parse(req.body.data);
+    if(Object.keys(req.body.data).length === 0) {
+        res.redirect('/deviceInfo')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = JSON.parse(req.body.data);
 
-    newData.updateTime = time;
-    deviceInfoModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/deviceInfo');
-        }
-    })
+        newData.updateTime = time;
+        deviceInfoModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/deviceInfo');
+            }
+        })
+    }
 })
 router.get('/deviceInfoDelete/:_id',function(req,res){
     // 条件
@@ -737,22 +780,26 @@ router.get('/devicesEdit/:_id',function(req,res){
 })
 router.post('/devicesEditSubmit/:_id',function(req,res){
     // 条件
-    var con = {
-            _id : req.params._id
-        },
-        newData = JSON.parse(req.body.data);
-    console.log('===============> '+ typeof newData)
-    newData.updateTime = time;
-    devicesModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/devices');
-        }
-    })
+    if(Object.keys(req.body.data).length === 0) {
+        res.redirect('/devices')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = JSON.parse(req.body.data);
+
+        newData.updateTime = time;
+        devicesModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/devices');
+            }
+        })
+    }
 })
 router.get('/devicesDelete/:_id',function(req,res){
     // 条件
@@ -811,22 +858,26 @@ router.get('/deviceGroupsEdit/:_id',function(req,res){
 })
 router.post('/deviceGroupsEditSubmit/:_id',function(req,res){
     // 条件
-    var con = {
-            _id : req.params._id
-        },
-        newData = req.body;
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/deviceGroups')
+    } else {
+        var con = {
+                _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time;
-    deviceGroupsModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('devices');
-        }
-    })
+        newData.updateTime = time;
+        deviceGroupsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('devices');
+            }
+        })
+    }
 })
 router.get('/deviceGroupsDelete/:_id',function(req,res){
     // 条件
@@ -852,10 +903,11 @@ router.get('/automationsAdd', function(req, res, next) {
     res.render('automationsAdd');
 });
 router.post('/automationsAddSubmit', function(req, res, next) {
-    console.log(req.body);
+    var newData = JSON.parse(req.body.data)
+    console.log(JSON.stringify(newData));
 
     // 插入数据
-    automationsModel.create(req.body, function(err,result){
+    automationsModel.create(newData, function(err,result){
         if(err){
             console.error(err);
             // 说明有问题,跳转会添加用户的页面
@@ -866,6 +918,43 @@ router.post('/automationsAddSubmit', function(req, res, next) {
         }
     });
 });
+router.get('/automationsEdit/:_id',function(req,res){
+    var con = {
+        _id : req.params._id
+    }
+    automationsModel.findOne(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.render('automationsEdit',{automation:data});
+        }
+    })
+})
+router.post('/automationsEditSubmit/:_id',function(req,res){
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('scenes')
+    } else {
+        var con = {
+            _id : req.params._id
+            },
+            newData = JSON.parse(req.body.data);
+
+        newData.updateTime = time
+        automationsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/automations');
+            }
+        })
+    }
+})
 router.get('/automationsDelete/:_id',function(req,res){
     // 条件
     var con = {
@@ -889,7 +978,7 @@ router.get('/automationsDelete/:_id',function(req,res){
 router.get('/groupsAdd', function(req, res, next) {
     res.render('groupsAdd');
 });
-router.get('/groupsAdd/:_id', function(req, res, next) {
+router.get('/groupsMatch/:_id', function(req, res, next) {
     res.render('groupsAdd', {_id:req.params._id});
 });
 router.post('/groupsAddSubmit', function(req, res, next) {
@@ -908,6 +997,43 @@ router.post('/groupsAddSubmit', function(req, res, next) {
         }
     });
 });
+router.get('/groupsEdit/:_id',function(req,res){
+    var con = {
+        _id : req.params._id
+    }
+    groupsModel.findOne(con, function(err, data){
+        if(err){
+            console.error(err);
+            // 说明有问题,跳转会添加用户的页面
+            res.redirect('back');
+        }else{
+            // 跳转首页
+            res.render('groupsEdit',{group:data});
+        }
+    })
+})
+router.post('/groupsEditSubmit/:_id',function(req,res){
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('/groups')
+    } else {
+        var con = {
+            _id : req.params._id
+            },
+            newData = JSON.parse(req.body.data);
+
+        newData.updateTime = time
+        groupsModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/groups');
+            }
+        })
+    }
+})
 router.get('/groupsDelete/:_id',function(req,res){
     // 条件
     var con = {
@@ -963,23 +1089,26 @@ router.get('/scenesEdit/:_id',function(req,res){
     })
 })
 router.post('/scenesEditSubmit/:_id',function(req,res){
-    var con = {
-        _id : req.params._id
-    },
-    newData = req.body;
-    active : 0,
+    if(Object.keys(req.body).length === 0) {
+        res.redirect('scenes')
+    } else {
+        var con = {
+            _id : req.params._id
+            },
+            newData = req.body;
 
-    newData.updateTime = time
-    scenesModel.update(con, newData, function(err, data){
-        if(err){
-            console.error(err);
-            // 说明有问题,跳转会添加用户的页面
-            res.redirect('back');
-        }else{
-            // 跳转首页
-            res.redirect('/scenes');
-        }
-    })
+        newData.updateTime = time
+        scenesModel.update(con, newData, function(err, data){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 跳转首页
+                res.redirect('/scenes');
+            }
+        })
+    }
 })
 router.get('/scenesDelete/:_id',function(req,res){
     // 条件

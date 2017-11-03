@@ -12,13 +12,14 @@
                     <th>autoName</th>
                     <th>identifyID</th>
                     <th>timeZone</th>
-                    <th>trigger</th>
-                    <th>triggerFunction</th>
-                    <th>deviceList</th>
-                    <th>functionList</th>
-                    <th>sceneID</th>
-                    <th>enable</th>
-                    <th>push</th>
+                    <th>trigger<br />
+                        triggerFunction</th>
+                    <th>deviceList<br />
+                        functionList<br />
+                        runAfter</th>
+                    <th>sceneID<br />
+                        enable<br />
+                        push</th>
                     <th>updateTime<br />
                         createTime</th>
                     <th></th>
@@ -32,18 +33,28 @@
                         <td><%= automation.autoName %></td>
                         <td><%= automation.identifyID %></td>
                         <td><%= automation.timeZone %></td>
-                        <td><%= automation.trigger %></td>
-                        <td><%= automation.triggerFunction %></td>
-                        <td><%= automation.deviceList %></td>
-                        <td><%= automation.functionList %></td>
-                        <td><%= automation.sceneID %></td>
-                        <td><%= automation.enable %></td>
-                        <td><%= automation.push %></td>
+                        <td><%= automation.trigger %><br />
+                            <%= automation.triggerFunction.fullID %><br />
+                            <%= automation.triggerFunction.value %></td>
+                        <td><%  automation.action.forEach((alist) => {
+                                    alist.deviceList.forEach((dlist) => { %>
+                                        <%= dlist.deviceID+': '+dlist.level+ '|' %>
+                                    <% }) %>
+                                    <hr />
+                                    <% alist.functionList.forEach((flist) => { %>
+                                        <%= flist.fullID+': '+flist.value+ '|' %>
+                                    <% })%>
+                                    <hr />
+                                    <%= alist.runAfter.enable+': '+alist.runAfter.delay%>
+                            <% })%></td>
+                        <td><%= automation.sceneID %><br />
+                            <%= automation.enable %><br />
+                            <%= automation.push %></td>
                         <td><%= momentTimezone(automation.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(automation.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="submit" class="btn btn-danger btn-delete">Delete</button>
-                            <button type="submit" class="btn btn-info btn-edit">Edit</button>
+                            <button type="submit" class="btn btn-danger btn-delete" formaction="/automationsDelete/<%= automation._id %>">Delete</button>
+                            <button type="submit" class="btn btn-info btn-edit" formaction="/automationsEdit/<%= automation._id %>">Edit</button>
                         </td>
                     </tr>
                 <% }) %>

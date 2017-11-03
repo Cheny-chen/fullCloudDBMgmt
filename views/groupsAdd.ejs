@@ -18,45 +18,20 @@
         </div>
         <div class="form-group row">
             <label for="input_deviceList" class="col-sm-2 col-form-label">action</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
-            </div>
-            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
-            </div>
-            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
-            </div>
-            <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="action[][deviceID]" placeholder="device ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][fullID]" placeholder="full ID">
-            </div>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="action[][functionList][value]" placeholder="value">
-            </div>
+            <% for(x=0; x<4; x++) { %>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control input_deviceID" placeholder="device ID">
+                </div>
+                <% for(i=0; i<2; i++) { %>
+                    <div class="col-sm-2">
+                        <input type="Number" class="form-control input_fullID" placeholder="full ID">
+                    </div>
+                    <div class="col-sm-1">
+                        <input type="text" class="form-control input_value" placeholder="value">
+                    </div>
+                <% }%>
+                <label for="input_deviceList" class="col-sm-2 col-form-label"></label>
+            <% }%>
         </div>
         <div class="form-group row">
             <div class="col-sm-9"></div>
@@ -69,13 +44,22 @@
 </div>
 <%- include('partials/footer') %>
 <script>
+    $('.input_deviceID').on('change', function(event){
+        $(this).attr('name', 'action[][deviceID]')
+    })
+    $('.input_fullID').on('change', function(event){
+        $(this).attr('name', 'action[][functionList][][fullID]')
+    })
+    $('.input_value').on('change', function(event){
+        $(this).attr('name', 'action[][functionList][][value]')
+    })
     $('#thisForm').on('submit', function(event){
         event.preventDefault();
         var obj = $(this).serializeJSON();
         var str = JSON.stringify(obj);
         console.log(str);
         $.post('/groupsAddSubmit', {data: str}, function(result) {
-            // console.log("group: %j ", result);
+            location.href = "/groups";
         });
     })
 </script>

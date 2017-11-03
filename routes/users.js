@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
     },function(err,data){
         // 分配数据
-        console.log(data)
+        console.log(data[0]._id)
         res.render('users',{usersData:data});
         // }).sort({_id:-1});
     })
