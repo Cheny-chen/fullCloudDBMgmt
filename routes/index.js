@@ -24,35 +24,96 @@ router.get('/', function(req, res, next) {
 // 1. users CRUD
 //===================================
 router.get('/usersAdd', function(req, res, next) {
-    res.render('usersAdd');
+    res.render('usersAdd', {serialNumber: undefined, permission: undefined});
 });
-router.post('/usersAddSubmit', function(req, res, next) {
-    console.log(req.body);
-
-    // 插入数据
-    usersModel.create(req.body, function(err,result){
+router.get('/usersMatch/:_id/:_snID', function(req, res, next) {
+    var permiss = {
+            _id : req.params._id
+        }
+    var con = {
+            snID : req.params.snID
+        }
+    serialNumbersModel.findOne(con, function(err, data){
         if(err){
             console.error(err);
             // 说明有问题,跳转会添加用户的页面
             res.redirect('back');
         }else{
-            // 条件
-            var con = {
-                _id : result._id
-            }
-            permissionsModel.create(con, function(err,result){
-                if(err){
-                    console.error(err);
-                    // 说明有问题,跳转会添加用户的页面
-                    res.redirect('back');
-                }else{
-                    // 跳转首页
-                    console.log(result);
-                    res.redirect('/users');
-                }
-            });
+            // 跳转首页
+            res.render('usersAdd',{serialNumber:data, permission: permiss});
         }
-    });
+    })
+});
+router.post('/usersAddSubmit/:parentID', function(req, res, next) {
+    console.log(req.body);
+    if(req.params.parentID!='0') {
+        // 插入数据
+        var newData = req.body
+        newData._id = uuidv4(time);
+        usersModel.create(newData, function(err,result){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 条件
+                var con = {
+                    _id : req.params.parentID
+                }
+                permissionsModel.findOne(con, function(err, data){
+                    console.log('id==============>'+ result._id)
+                    console.log('permissions ====> '+ JSON.stringify(data))
+                    if(err){
+                        console.error(err);
+                        // 说明有问题,跳转会添加用户的页面
+                        res.redirect('back');
+                    }else{
+                        var con = {
+                            _id : result._id,
+                            parentID: req.params.parentID,
+                            snID: data.snID
+                        }
+                        permissionsModel.create(con, function(err,result){
+                            if(err){
+                                console.error(err);
+                                // 说明有问题,跳转会添加用户的页面
+                                res.redirect('back');
+                            }else{
+                                // 跳转首页
+                                console.log(result);
+                                res.redirect('/permissions');
+                            }
+                        });
+                    }
+                })
+            }
+        });
+    } else {
+        // 插入数据
+        usersModel.create(req.body, function(err,result){
+            if(err){
+                console.error(err);
+                // 说明有问题,跳转会添加用户的页面
+                res.redirect('back');
+            }else{
+                // 条件
+                var con = {
+                    _id : result._id
+                }
+                permissionsModel.create(con, function(err,result){
+                    if(err){
+                        console.error(err);
+                        // 说明有问题,跳转会添加用户的页面
+                        res.redirect('back');
+                    }else{
+                        // 跳转首页
+                        console.log(result);
+                        res.redirect('/users');
+                    }
+                });
+            }
+        });
+    }
 });
 router.get('/usersEdit/:_id',function(req,res){
     var con = {

@@ -30,9 +30,9 @@
                         <td><%= momentTimezone(permission.updateTime).tz('Asia/Taipei').format('lll') %><br />
                             <%= momentTimezone(permission.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
-                            <button type="submit" class="btn btn-danger btn-delete" formaction="/permissionsDelete/<%= permission._id%>" <%= permission.parentID?'':'disabled' %>>Delete</button>
                             <button type="submit" class="btn btn-info btn-edit" formaction="/permissionsEdit/<%= permission._id%>">Edit</button>
-                            <button type="submit" class="btn btn-success btn-add" formaction="/permissionsAdd/<%= permission._id%>">Permit</button>
+                            <button type="submit" class="btn btn-dark btn-add" formaction="/usersMatch/<%= permission._id%>/<%= permission.snID%>"
+                                    <%= permission.parentID?'disabled':'' %>>User</button>
                         </td>
                     </tr>
                 <% }) %>
