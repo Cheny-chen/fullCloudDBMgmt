@@ -167,9 +167,9 @@ var devicesSchema = new Schema({
     firmwareID:     { type: String, required: false, index: true, ref: 'deviceInfo' },
     fullModelID:    { type: String, required: false, index: true, ref: 'deviceInfo' },
     functionList:   [{
+        _id:        false,
         fullID:     { type: Number, required: false },
-        value:      { type: String, required: false, default: "" },
-        updateTime: { type: Date,   required: false, default: Date.now }
+        value:      { type: String, required: false, default: "" }
     }],
     deGroupID:      { type: ObjectId, required: false, index: true, ref: 'deviceGroups' },
     owner:          { type: UUID,   required: false, ref: 'permissions' }
