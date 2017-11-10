@@ -124,7 +124,7 @@ permissionsSchema.index({parentID:1, snID:1})
 // 7. create a clouds schema
 //===================================
 var cloudsSchema = new Schema({
-    _id:            { type: Number, required: true, unique: true, default: Math.round(Date.now/1000), ref: 'devices' },
+    _id:            { type: Number, required: true, unique: true, default: Math.round(new Date().getTime()/1000), ref: 'devices' },
     cloudName:      { type: String, required: true, unique: true },
     mqttHost:       { type: String, required: true },
     mqttPort:       { type: Number, required: true },
@@ -239,7 +239,7 @@ automationsSchema.index({idGroupID:1, gatewayID:1})
 // 12. create a groups schema
 //===================================
 var groupsSchema = new Schema({
-    _id:              { type: UUID,   required: true, unique: true, default: uuidv4(Date.now) },
+    _id:              { type: UUID,   required: true, unique: true, default: uuidv4() },
     groupName:        { type: String, required: false },
     identifyID:       { type: UUID,   required: false, ref: 'identifies' },
     action:           [{
