@@ -17,15 +17,27 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="input_mqttHost" class="col-sm-2 col-form-label">mqttHost</label>
+            <label for="input_mqttHost" class="col-sm-2 col-form-label">host</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="input_mqttHost" placeholder="mqtt Host" value="<%= cloud.mqttHost %>">
+                <input type="text" class="form-control" id="input_host" placeholder="mqtt Host" value="<%= cloud.host %>">
             </div>
         </div>
         <div class="form-group row">
-            <label for="input_mqttPort" class="col-sm-2 col-form-label">mqttPort</label>
+            <label for="input_mqttPort" class="col-sm-2 col-form-label">port</label>
             <div class="col-sm-10">
-                <input type="Number" class="form-control" id="input_mqttPort" placeholder="mqtt Port" value="<%= cloud.mqttPort %>">
+                <input type="Number" class="form-control" id="input_port" placeholder="mqtt Port" value="<%= cloud.port %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_mqttHost" class="col-sm-2 col-form-label">username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="input_username" placeholder="mqtt username" value="<%= cloud.username %>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input_mqttPort" class="col-sm-2 col-form-label">password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="input_password" placeholder="mqtt password" value="<%= cloud.password %>">
             </div>
         </div>
         <div class="form-group row">
@@ -69,11 +81,17 @@
     $('#input_cloudName').on("change", function(event) {
         $(this).attr('name','cloudName');
     })
-    $('#input_mqttHost').on("change", function(event) {
-        $(this).attr('name','mqttHost');
+    $('#input_host').on("change", function(event) {
+        $(this).attr('name','host');
     })
-    $('#input_mqttPort').on("change", function(event) {
-        $(this).attr('name','mqttPort');
+    $('#input_port').on("change", function(event) {
+        $(this).attr('name','port');
+    })
+    $('#input_username').on("change", function(event) {
+        $(this).attr('name','username');
+    })
+    $('#input_password').on("change", function(event) {
+        $(this).attr('name','password');
     })
     $('.radio_active').on("change", function(event) {
         $(this).attr('name','active');

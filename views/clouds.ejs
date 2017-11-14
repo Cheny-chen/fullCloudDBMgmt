@@ -10,11 +10,13 @@
                     <th>#</th>
                     <th>_id</th>
                     <th>cloudName</th>
-                    <th>mqttHost</th>
-                    <th>mqttPort</th>
+                    <th>host</th>
+                    <th>port</th>
+                    <th>username<br />
+                        password</th>
                     <th>active</th>
-                    <th>updateTime</th>
-                    <th>createTime</th>
+                    <th>updateTime<br />
+                        createTime</th>
                     <th></th>
                 </tr>
             </thead>
@@ -24,11 +26,13 @@
                         <th scope="row"><%= cindex+1 %></th>
                         <td><%= cloud._id %></td>
                         <td><%= cloud.cloudName %></td>
-                        <td><%= cloud.mqttHost %></td>
-                        <td><%= cloud.mqttPort %></td>
+                        <td><%= cloud.host %></td>
+                        <td><%= cloud.port %></td>                        
+                        <td><%= cloud.username %><br />
+                            <%= cloud.password %></td>
                         <td><%= cloud.active %></td>
-                        <td><%= momentTimezone(cloud.updateTime).tz('Asia/Taipei').format('lll') %></td>
-                        <td><%= momentTimezone(cloud.createTime).tz('Asia/Taipei').format('lll') %></td>
+                        <td><%= momentTimezone(cloud.updateTime).tz('Asia/Taipei').format('lll') %><br />
+                            <%= momentTimezone(cloud.createTime).tz('Asia/Taipei').format('lll') %></td>
                         <td>
                             <button type="submit" class="btn btn-danger btn-delete" formaction="/cloudsDelete/<%= cloud._id %>">Delete</button>
                             <button type="submit" class="btn btn-warning btn-off" formaction="/cloudsOff/<%= cloud._id %>">Inactive</button>

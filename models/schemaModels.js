@@ -124,10 +124,12 @@ permissionsSchema.index({parentID:1, snID:1})
 // 7. create a clouds schema
 //===================================
 var cloudsSchema = new Schema({
-    _id:            { type: Number, required: true, unique: true, default: Math.round(new Date().getTime()/1000), ref: 'devices' },
+    _id:            { type: Number, required: true, unique: true, default: Math.round(time/1000), ref: 'devices' },
     cloudName:      { type: String, required: true, unique: true },
-    mqttHost:       { type: String, required: true },
-    mqttPort:       { type: Number, required: true },
+    host:           { type: String, required: true },
+    port:           { type: Number, required: true },
+    username:       { type: String, required: false },
+    password:       { type: String, required: false },
     active:         { type: Number, required: false,
                       min:0,
                       max: 1,
@@ -141,6 +143,7 @@ var deviceInfoSchema = new Schema({
     _id:            { type: String, required: true, ref: 'devices' },
     fullModelID:    { type: String, required: true, ref: 'devices' },
     sfunctionList:  [{
+        _id:        false,
         fullID:     { type: Number, required: false },
         value:      { type: String, required: false, default: "" }
     }],
@@ -260,7 +263,14 @@ var scenesSchema = new Schema({
     sceneName:      { type: String, required: true }
 }, {timestamps:     { createdAt: 'createTime', updatedAt: 'updateTime' }
 });
-time = 0;
+//===================================
+// 14. topic a scenes schema
+//===================================
+var topicsSchema = new Schema({
+    topic:          { type: String, required: true },
+    cloudID:        { type: Number, required: true, ref: 'clouds' }
+}, {timestamps:     { createdAt: 'createTime', updatedAt: 'updateTime' }
+});
 // the schema is useless so far
 // we need to create a model using it
 var users = mongoose.model('users', usersSchema, 'users');
@@ -276,7 +286,7 @@ var deviceGroups = mongoose.model('deviceGroups', deviceGroupsSchema, 'deviceGro
 var automations = mongoose.model('automations', automationsSchema, 'automations');
 var groups = mongoose.model('groups', groupsSchema, 'groups');
 var scenes = mongoose.model('scenes', scenesSchema, 'scenes');
-
+var topics = mongoose.model('topics', topicsSchema, 'topics');
 // make this available to our users in our Node applications
 exports.users = users;
 exports.clients = clients;
@@ -291,3 +301,4 @@ exports.deviceGroups = deviceGroups;
 exports.automations = automations;
 exports.groups = groups;
 exports.scenes = scenes;
+exports.topics;
